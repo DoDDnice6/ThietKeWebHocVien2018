@@ -1,0 +1,37 @@
+﻿ 2018-03-29 15:41:26,952 [P4948/D11/T16] INFO  umbraco.BusinessLogic.Log - Log scrubbed.  Removed all items older than 2018-03-28 15:41:26
+ 2018-03-29 19:41:27,035 [P4948/D11/T120] INFO  umbraco.BusinessLogic.Log - Log scrubbed.  Removed all items older than 2018-03-28 19:41:27
+ 2018-03-29 20:40:29,595 [P4948/D11/T84] INFO  Umbraco.Web.Scheduling.BackgroundTaskRunner - [LogScrubber] Terminating
+ 2018-03-29 20:40:29,595 [P4948/D11/T84] INFO  Umbraco.Web.Scheduling.BackgroundTaskRunner - [LogScrubber] Waiting for tasks to complete
+ 2018-03-29 20:40:29,821 [P4948/D11/T84] INFO  Umbraco.Web.Scheduling.BackgroundTaskRunner - [ScheduledTasks] Terminating
+ 2018-03-29 20:40:29,821 [P4948/D11/T84] INFO  Umbraco.Web.Scheduling.BackgroundTaskRunner - [ScheduledTasks] Waiting for tasks to complete
+ 2018-03-29 20:40:29,821 [P4948/D11/T84] INFO  Umbraco.Web.Scheduling.BackgroundTaskRunner - [Umbraco.Web.Scheduling.IBackgroundTask] Terminating
+ 2018-03-29 20:40:29,821 [P4948/D11/T84] INFO  Umbraco.Web.Scheduling.BackgroundTaskRunner - [Umbraco.Web.Scheduling.IBackgroundTask] Waiting for tasks to complete
+ 2018-03-29 20:40:29,977 [P4948/D11/T84] INFO  Umbraco.Web.Scheduling.BackgroundTaskRunner - [ScheduledPublishing] Terminating
+ 2018-03-29 20:40:29,977 [P4948/D11/T84] INFO  Umbraco.Web.Scheduling.BackgroundTaskRunner - [ScheduledPublishing] Waiting for tasks to complete
+ 2018-03-29 20:40:30,139 [P4948/D11/T120] INFO  Umbraco.Web.Scheduling.BackgroundTaskRunner - [ScheduledTasks] Tasks completed, terminated
+ 2018-03-29 20:40:30,139 [P4948/D11/T48] INFO  Umbraco.Web.Scheduling.BackgroundTaskRunner - [LogScrubber] Tasks completed, terminated
+ 2018-03-29 20:40:30,139 [P4948/D11/T79] INFO  Umbraco.Web.Scheduling.BackgroundTaskRunner - [ScheduledPublishing] Tasks completed, terminated
+ 2018-03-29 20:40:30,139 [P4948/D11/T105] INFO  Umbraco.Web.Scheduling.BackgroundTaskRunner - [Umbraco.Web.Scheduling.IBackgroundTask] Tasks completed, terminated
+ 2018-03-29 20:40:30,745 [P4948/D11/T84] INFO  Umbraco.Core.MainDom - Stopping...
+ 2018-03-29 20:40:31,127 [P4948/D11/T84] INFO  Umbraco.Web.ExamineStartup - Examine shutting down
+ 2018-03-29 20:40:31,189 [P4948/D11/T84] INFO  Umbraco.Web.ExamineStartup - Complete (took 63ms)
+ 2018-03-29 20:40:31,220 [P4948/D11/T84] INFO  Umbraco.Core.MainDom - Released MainDom.
+ 2018-03-29 20:40:31,236 [P4948/D11/T84] INFO  Umbraco.Web.Scheduling.BackgroundTaskRunner - [HealthCheckNotifier] Terminating
+ 2018-03-29 20:40:31,236 [P4948/D11/T84] INFO  Umbraco.Web.Scheduling.BackgroundTaskRunner - [HealthCheckNotifier] Waiting for tasks to complete
+ 2018-03-29 20:40:31,236 [P4948/D11/T84] INFO  Umbraco.Web.Scheduling.BackgroundTaskRunner - [HealthCheckNotifier] Tasks completed, terminated
+ 2018-03-29 20:40:31,252 [P4948/D11/T84] INFO  Umbraco.Web.Scheduling.BackgroundTaskRunner - [InstructionProcessing] Terminating
+ 2018-03-29 20:40:31,252 [P4948/D11/T84] INFO  Umbraco.Web.Scheduling.BackgroundTaskRunner - [InstructionProcessing] Waiting for tasks to complete
+ 2018-03-29 20:40:31,252 [P4948/D11/T84] INFO  Umbraco.Web.Scheduling.BackgroundTaskRunner - [KeepAlive] Terminating
+ 2018-03-29 20:40:31,252 [P4948/D11/T84] INFO  Umbraco.Web.Scheduling.BackgroundTaskRunner - [KeepAlive] Waiting for tasks to complete
+ 2018-03-29 20:40:31,252 [P4948/D11/T102] INFO  Umbraco.Web.Scheduling.BackgroundTaskRunner - [InstructionProcessing] Tasks completed, terminated
+ 2018-03-29 20:40:31,252 [P4948/D11/T120] INFO  Umbraco.Web.Scheduling.BackgroundTaskRunner - [KeepAlive] Tasks completed, terminated
+ 2018-03-29 20:41:01,943 [P4948/D11/T84] INFO  Umbraco.Core.UmbracoApplicationBase - Application shutdown. Details: HostingEnvironment
+
+_shutDownMessage=HostingEnvironment initiated shutdown
+HostingEnvironment caused shutdown
+
+_shutDownStack=   at System.Environment.GetStackTrace(Exception e, Boolean needFileInfo)
+   at System.Environment.get_StackTrace()
+   at System.Web.Hosting.HostingEnvironment.InitiateShutdownInternal()
+   at System.Web.Hosting.HostingEnvironment.InitiateShutdownWithoutDemand()
+   at System.Web.Hosting.PipelineRuntime.StopProcessing()

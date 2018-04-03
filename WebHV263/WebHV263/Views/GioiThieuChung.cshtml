@@ -1,0 +1,39 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoTemplatePage
+@{
+    Layout = "Master.cshtml";
+}
+@Html.Partial("Giới Thiệu")
+<div>Giới thiệu chung</div>
+@{ 
+    var currentNode = UmbracoContext.Current.PublishedContentRequest.PublishedContent;
+    var child = currentNode.Children;
+}
+
+<div style="float:right;width:70%;">
+    <ul class="nav nav-tabs">
+        @{
+            int index = 1;
+            foreach (var item in child)
+            {
+                <li><a data-toggle="tab" href="@string.Format("#menu"+index++)">@item.Name</a></li>
+            }
+        }
+
+    </ul>
+
+
+
+    <div class="tab-content">
+        @{
+            index = 1;
+            foreach (var item in child)
+            {
+                <div id="@string.Format("menu"+index++)" class="tab-pane fade in active">
+                    <h3>@item.Name</h3>
+                    @Html.Raw(item.GetPropertyValue<string>("noiDung"))
+                </div>
+            }
+        }
+
+    </div>
+</div>

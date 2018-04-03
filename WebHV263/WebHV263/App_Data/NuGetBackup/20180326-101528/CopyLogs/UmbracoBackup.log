@@ -1,0 +1,26 @@
+
+-------------------------------------------------------------------------------
+   ROBOCOPY     ::     Robust File Copy for Windows                              
+-------------------------------------------------------------------------------
+
+  Started : 26 March 2018 10:15:28 AM
+   Source : D:\h?c t?p\ki 6\Cong Nghe Web\web_app\WebHV263\WebHV263\Umbraco\
+     Dest : D:\h?c t?p\ki 6\Cong Nghe Web\web_app\WebHV263\WebHV263\App_Data\NuGetBackup\20180326-101528\Umbraco\
+
+    Files : *.*
+	    
+  Options : *.* /S /E /DCOPY:DA /COPY:DAT /R:1000000 /W:30 
+
+------------------------------------------------------------------------------
+
+	                   0	D:\h?c t?p\ki 6\Cong Nghe Web\web_app\WebHV263\WebHV263\Umbraco\
+
+------------------------------------------------------------------------------
+
+               Total    Copied   Skipped  Mismatch    FAILED    Extras
+    Dirs :         1         0         1         0         0         0
+   Files :         0         0         0         0         0         0
+   Bytes :         0         0         0         0         0         0
+   Times :   0:00:00   0:00:00                       0:00:00   0:00:00
+   Ended : 26 March 2018 10:15:28 AM
+

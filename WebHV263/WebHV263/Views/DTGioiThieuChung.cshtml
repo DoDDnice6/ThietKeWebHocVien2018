@@ -1,0 +1,14 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoTemplatePage
+@{
+	Layout = "Master.cshtml";
+}
+@Html.Partial("Đào Tạo Menu")
+@* the fun starts here *@
+@{
+    var currentNode = UmbracoContext.Current.PublishedContentRequest.PublishedContent;
+}
+@Html.Partial("ListChildPage")
+
+<div>
+    @Html.Raw(currentNode.GetPropertyValue<string>("noiDung"))
+</div>

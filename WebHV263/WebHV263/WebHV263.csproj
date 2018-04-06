@@ -1807,6 +1807,19 @@
     <Content Include="Views\HinhAnhTieuBieu.cshtml" />
     <Content Include="Views\Partials\Giới Thiệu.cshtml" />
     <Content Include="Views\BanGiamDoc.cshtml" />
+    <Content Include="Views\KhoiCoQuan.cshtml" />
+    <Content Include="Views\KhoiDonViQuanLyHocVien.cshtml" />
+    <Content Include="Views\KhoiKhoaVien.cshtml" />
+    <Content Include="Views\DTBoTucBoiDuong.cshtml" />
+    <Content Include="Views\DTCamKetChuanDauRa.cshtml" />
+    <Content Include="Views\DTDaoTaoChuyenCapLienThong.cshtml" />
+    <Content Include="Views\DTDaoTaoDaiHoc.cshtml" />
+    <Content Include="Views\DTDaoTaoSauDaiHoc.cshtml" />
+    <Content Include="Views\DTGioiThieuChung.cshtml" />
+    <Content Include="Views\DTTraCuuDiemThi.cshtml" />
+    <Content Include="Views\GioiThieu.cshtml" />
+    <Content Include="Views\Partials\NavigateHome.cshtml" />
+    <Content Include="Views\Partials\Đào Tạo Menu.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

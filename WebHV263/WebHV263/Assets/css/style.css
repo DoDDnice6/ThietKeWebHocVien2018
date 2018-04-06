@@ -43,7 +43,7 @@ h1.b1, h2.b2, h3.b3 {
 .banner{
 	/*background:url(../images/banner.jpg) no-repeat;*/
 	background-size:cover;
-	min-height:835px;
+	/*min-height:835px;*/
 }
 .logo{
 	float:left;
@@ -2255,4 +2255,18 @@ address{
 ul.navig {
   padding:0.6em 0;
 }
+}
+
+
+.left-menu{
+    display:block;
+    width:300px;
+    float:left;
+    padding-left:5px;
+    border: 2px solid red;
+}
+
+.current {
+    color:#fff;
+    font-size:20px;
 }

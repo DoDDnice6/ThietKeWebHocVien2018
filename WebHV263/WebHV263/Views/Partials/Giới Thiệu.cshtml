@@ -1,27 +1,18 @@
 ﻿@inherits Umbraco.Web.Mvc.UmbracoTemplatePage
 <div>Gioi thieu</div>
 @{
-    var selection = Model.Content.Site().Children("gioiThieu")
-                        .Where(x => x.IsVisible());
-    var tmp = CurrentPage.Children.Where("Visible");
-    var tmp1 = Model.Content.Children("gioiThieu");
-
+    var parentNode = Umbraco.TypedContent(1075).Children();
 }
-<ul>
-	@foreach (var item in selection){
-		<li>
-			<a href="@item.Url">@item.Name</a>
-		</li>
-	}
-</ul>
+<div class="left-menu">
     <ul>
-        @foreach (var item in tmp1)
+        @foreach (var item in parentNode)
         {
             <li>
                 <a href="@item.Url">@item.Name</a>
-            </li>
-        }
+            </li>}
     </ul>
+</div>
+
 
 
 

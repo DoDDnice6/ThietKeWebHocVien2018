@@ -1,0 +1,32 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoTemplatePage
+@{
+	Layout = "Master.cshtml";
+}
+
+@{ 
+    var currentNode = UmbracoContext.Current.PublishedContentRequest.PublishedContent;
+    var child = currentNode.Children;
+}
+<div>Khối Cơ Quan</div>
+
+<ul>
+    @foreach(var item in child)
+    {
+        <li>
+            <div style="text-align:center;">
+                <div>
+                    @(item.GetPropertyValue<string>("banChiHuy"))
+                </div>
+                <div>
+                    @(item.GetPropertyValue<string>("chucNang"))
+                </div>
+                <div>
+                    @(item.GetPropertyValue<string>("nhiemVu"))
+                </div>
+                <div>
+                    @(item.GetPropertyValue<string>("thanhTich"))
+                </div>
+            </div>
+        </li>
+    }
+</ul>

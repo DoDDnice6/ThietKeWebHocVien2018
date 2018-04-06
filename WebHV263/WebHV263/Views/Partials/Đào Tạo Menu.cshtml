@@ -1,0 +1,17 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoTemplatePage
+<div>Gioi thieu</div>
+@{
+    var parentNode = Umbraco.TypedContent(1077).Children();
+}
+<div class="left-menu">
+    <ul>
+        @foreach (var item in parentNode)
+        {
+        <li>
+            <a href="@item.Url">@item.Name</a>
+        </li>}
+    </ul>
+</div>
+
+
+

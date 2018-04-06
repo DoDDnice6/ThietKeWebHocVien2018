@@ -1,0 +1,21 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoTemplatePage
+@{
+    Layout = "Master.cshtml";
+}
+
+@* the fun starts here *@
+
+<div>Cơ Cấu tổ Chức</div>
+@{
+    var ParentNode = Umbraco.TypedContent(1105).Children();
+ }
+<ul class="left-menu">
+	@foreach(var item in ParentNode){
+		<li>
+			<a href="@item.Url">@item.Name</a>
+		</li>
+	}
+</ul>
+
+@Html.Partial("ListDescendantPage")
+

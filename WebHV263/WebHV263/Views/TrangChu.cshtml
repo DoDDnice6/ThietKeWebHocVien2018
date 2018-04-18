@@ -2,16 +2,6 @@
 @{
 	Layout = "Master.cshtml";
 }
-Trang Chủ
-
-<!--A Design by W3layouts
-Author: W3layout
-Author URL: http://w3layouts.com
-License: Creative Commons Attribution 3.0 Unported
-License URL: http://creativecommons.org/licenses/by/3.0/
--->
-
-    <!-- banner -->
     <script src="/Assets/js/responsiveslides.min.js"></script>
     <script>
 
@@ -25,7 +15,6 @@ License URL: http://creativecommons.org/licenses/by/3.0/
       });
     });
     </script>
-    <div class="style">xx</div>
      @Html.Partial("EditProfile")
              <div class="clearfix"></div>
     <div class="banner">
@@ -43,73 +32,36 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                 </div>
             </div>
         </div>
-        @*<div class="banner-grids">
-            <div class="container">
-                <div class="col-md-4 banner-grid">
-                    <h3>Blog Feed</h3>
-                    <div class="banner-grid-sec">
-                        <div class="grid_info">
-                            <div class="blg-pic">
-                                <img src="images/m1.jpg" class="img-responsive" alt="">
-                            </div>
-                            <div class="blg-pic-info">
-                                <h4><a href="#">Vivamus tempus ligula</a></h4>
-                                <p>Aliquam sem velit, rhoncus sed arcu at curabitur et erat eu viverra.</p>
-                            </div>
-                            <div class="clearfix"></div>
-                        </div>
-                        <div class="grid_info">
-                            <div class="blg-pic">
-                                <img src="images/m2.jpg" class="img-responsive" alt="">
-                            </div>
-                            <div class="blg-pic-info">
-                                <h4><a href="#">Vivamus tempus ligula</a></h4>
-                                <p>Aliquam sem velit, rhoncus sed arcu at curabitur et erat eu viverra.</p>
-                            </div>
-                            <div class="clearfix"></div>
-                        </div>
-                        <div class="more">
-                            <a href="blog.html">See more from the Blog ></a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4 banner-grid">
-                    <h3>News Feed</h3>
-                    <div class="banner-grid-sec">
-                        <div class="news-grid">
-                            <h4><a href="#">Vivamus tempus ligula</a></h4>
-                            <p>Aliquam sem velit, rhoncus sed arcu eu viverra.</p>
-                        </div>
-                        <div class="news-grid">
-                            <h4><a href="#">Vivamus tempus ligula</a></h4>
-                            <p>Aliquam sem velit, rhoncus sed arcu eu viverra.</p>
-                        </div>
-                        <div class="news-grid">
-                            <h4><a href="#">Vivamus tempus ligula</a></h4>
-                            <p>Aliquam sem velit, rhoncus sed arcu eu viverra.</p>
-                        </div>
-                        <div class="news-grid">
-                            <h4><a href="#">Vivamus tempus ligula</a></h4>
-                            <p>Aliquam sem velit, rhoncus sed arcu eu viverra.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4 banner-grid">
-                    <h3>News Letter</h3>
-                    <div class="banner-grid-sec news_sec">
-                        <div class="news-ltr">
-                            <h4><a href="#">Pellentesque sed arcu lacinia</a></h4>
-                            <p>Aliquam sem velit, rhoncus sed arcu eu viverra. Suspendisse lacus posuere ultricies turpis.</p>
-                        </div>
-                        <form>
-                            <input type="text" placeholder="Email Address*" required="">
-                            <input type="submit" value="SEND">
-                        </form>
-                    </div>
-                </div>
-                <div class="clearfix"></div>
-            </div>
-        </div>*@
     </div>
-
+    <div class="clearfix"></div>
+    <div class="news">
+	<div class="container">
+		<h3>Tin Hoạt Động</h3>
+        @{
+            	var selection = Model.Content.Site().FirstChild("tinTuc").FirstChild("chiTietTinTuc").Children("tinTucItem")
+            						.Where(x => x.IsVisible());
+            }
+            <ul>
+            	@foreach(var item in selection){
+            		<div class="col-md-4 event-grid">
+            		     @{
+                                    var image = Umbraco.TypedMedia(item.GetPropertyValue<string>("hinhAnh"));
+                                    var url = String.Empty;
+                                    if (image != null)
+                                    {
+                                        url = image.Url;
+                                    }
+                                    <div style="width:72%;">
+                                        <img src="@url" width="100%" height="100px"/>
+                                    </div>
+                        }
+                        <div class="clearfix"></div>
+            			<a href="@item.Url">@item.Name</a>
+            		    <div class="clearfix"></div>				 			 
+            	    </div>
+            	}
+            
+            </ul>    
+	</div>
+</div>
     <!---->

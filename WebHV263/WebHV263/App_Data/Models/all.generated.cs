@@ -8,8 +8,8 @@ using  Umbraco.Web;
 using  Umbraco.ModelsBuilder;
 using  Umbraco.ModelsBuilder.Umbraco;
 [assembly: PureLiveAssembly]
-[assembly:ModelsBuilderAssembly(PureLive = true, SourceHash = "be9fdb9f5f256a0d")]
-[assembly:System.Reflection.AssemblyVersion("0.0.0.2")]
+[assembly:ModelsBuilderAssembly(PureLive = true, SourceHash = "59ddf224c02eb107")]
+[assembly:System.Reflection.AssemblyVersion("0.0.0.1")]
 
 
 // FILE: models.generated.cs
@@ -92,7 +92,7 @@ namespace Umbraco.Web.PublishedContentModels
 		}
 	}
 
-	/// <summary>Tin Tuc</summary>
+	/// <summary>Tin Tức</summary>
 	[PublishedContentModel("tinTuc")]
 	public partial class TinTuc : Page
 	{
@@ -118,7 +118,7 @@ namespace Umbraco.Web.PublishedContentModels
 		}
 	}
 
-	/// <summary>Chi Tiet Tin Tuc</summary>
+	/// <summary>Tin Tức Tab</summary>
 	[PublishedContentModel("chiTietTinTuc")]
 	public partial class ChiTietTinTuc : Page
 	{
@@ -1782,6 +1782,94 @@ namespace Umbraco.Web.PublishedContentModels
 #pragma warning restore 0109
 
 		public static PublishedPropertyType GetModelPropertyType<TValue>(Expression<Func<HSsvgioiThieuChung, TValue>> selector)
+		{
+			return PublishedContentModelUtility.GetModelPropertyType(GetModelContentType(), selector);
+		}
+	}
+
+	/// <summary>Tin Tức Item</summary>
+	[PublishedContentModel("tinTucItem")]
+	public partial class TinTucItem : Misc
+	{
+#pragma warning disable 0109 // new is redundant
+		public new const string ModelTypeAlias = "tinTucItem";
+		public new const PublishedItemType ModelItemType = PublishedItemType.Content;
+#pragma warning restore 0109
+
+		public TinTucItem(IPublishedContent content)
+			: base(content)
+		{ }
+
+#pragma warning disable 0109 // new is redundant
+		public new static PublishedContentType GetModelContentType()
+		{
+			return PublishedContentType.Get(ModelItemType, ModelTypeAlias);
+		}
+#pragma warning restore 0109
+
+		public static PublishedPropertyType GetModelPropertyType<TValue>(Expression<Func<TinTucItem, TValue>> selector)
+		{
+			return PublishedContentModelUtility.GetModelPropertyType(GetModelContentType(), selector);
+		}
+
+		///<summary>
+		/// Hình Ảnh
+		///</summary>
+		[ImplementPropertyType("hinhAnh")]
+		public IPublishedContent HinhAnh
+		{
+			get { return this.GetPropertyValue<IPublishedContent>("hinhAnh"); }
+		}
+
+		///<summary>
+		/// Nội Dung
+		///</summary>
+		[ImplementPropertyType("noiDung")]
+		public IHtmlString NoiDung
+		{
+			get { return this.GetPropertyValue<IHtmlString>("noiDung"); }
+		}
+
+		///<summary>
+		/// Tác Giả
+		///</summary>
+		[ImplementPropertyType("tacGia")]
+		public string TacGia
+		{
+			get { return this.GetPropertyValue<string>("tacGia"); }
+		}
+
+		///<summary>
+		/// Tiêu Đề
+		///</summary>
+		[ImplementPropertyType("tieuDe")]
+		public string TieuDe
+		{
+			get { return this.GetPropertyValue<string>("tieuDe"); }
+		}
+	}
+
+	/// <summary>ádsd</summary>
+	[PublishedContentModel("adsd")]
+	public partial class Adsd : Page
+	{
+#pragma warning disable 0109 // new is redundant
+		public new const string ModelTypeAlias = "adsd";
+		public new const PublishedItemType ModelItemType = PublishedItemType.Content;
+#pragma warning restore 0109
+
+		public Adsd(IPublishedContent content)
+			: base(content)
+		{ }
+
+#pragma warning disable 0109 // new is redundant
+		public new static PublishedContentType GetModelContentType()
+		{
+			return PublishedContentType.Get(ModelItemType, ModelTypeAlias);
+		}
+#pragma warning restore 0109
+
+		public static PublishedPropertyType GetModelPropertyType<TValue>(Expression<Func<Adsd, TValue>> selector)
 		{
 			return PublishedContentModelUtility.GetModelPropertyType(GetModelContentType(), selector);
 		}

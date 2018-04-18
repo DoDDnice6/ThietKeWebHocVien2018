@@ -1,0 +1,15 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoTemplatePage
+@{
+	Layout = "Master.cshtml";
+}
+@{
+    var currentNode=UmbracoContext.Current.PublishedContentRequest.PublishedContent;
+}
+
+<div class="col-md-9">
+	<div>@(Html.Raw(currentNode.GetPropertyValue<string>("noiDung")))</div> 
+</div>
+@* banner phai*@
+<div class="md-col-3"></div>
+@* the fun starts here *@
+

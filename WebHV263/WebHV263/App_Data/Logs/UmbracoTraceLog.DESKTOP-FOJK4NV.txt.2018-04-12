@@ -1,0 +1,29 @@
+﻿ 2018-04-12 11:16:52,398 [P12224/D2/T80] INFO  Umbraco.Core.Security.BackOfficeSignInManager - Event Id: 0, state: Login attempt succeeded for username nevermore96bn@gmail.com from IP address ::1
+ 2018-04-12 11:16:52,399 [P12224/D2/T80] INFO  Umbraco.Core.Security.BackOfficeSignInManager - Event Id: 0, state: User: nevermore96bn@gmail.com logged in from IP address ::1
+ 2018-04-12 11:18:03,710 [P12224/D2/T37] WARN  Umbraco.Web.UmbracoModule - Status code is 404 yet TrySkipIisCustomErrors is false - IIS will take over.
+ 2018-04-12 14:48:30,592 [P12224/D2/T317] INFO  umbraco.BusinessLogic.Log - Log scrubbed.  Removed all items older than 2018-04-11 14:48:30
+ 2018-04-12 17:17:36,976 [P12224/D2/T317] INFO  Umbraco.Web.Scheduling.BackgroundTaskRunner - [KeepAlive] Terminating
+ 2018-04-12 17:17:36,976 [P12224/D2/T317] INFO  Umbraco.Web.Scheduling.BackgroundTaskRunner - [KeepAlive] Waiting for tasks to complete
+ 2018-04-12 17:17:36,976 [P12224/D2/T317] INFO  Umbraco.Web.Scheduling.BackgroundTaskRunner - [HealthCheckNotifier] Terminating
+ 2018-04-12 17:17:36,976 [P12224/D2/T317] INFO  Umbraco.Web.Scheduling.BackgroundTaskRunner - [HealthCheckNotifier] Waiting for tasks to complete
+ 2018-04-12 17:17:36,992 [P12224/D2/T317] INFO  Umbraco.Web.Scheduling.BackgroundTaskRunner - [HealthCheckNotifier] Tasks completed, terminated
+ 2018-04-12 17:17:36,992 [P12224/D2/T324] INFO  Umbraco.Web.Scheduling.BackgroundTaskRunner - [KeepAlive] Tasks completed, terminated
+ 2018-04-12 17:17:37,208 [P12224/D2/T317] INFO  Umbraco.Core.MainDom - Stopping...
+ 2018-04-12 17:17:37,239 [P12224/D2/T317] INFO  Umbraco.Web.ExamineStartup - Examine shutting down
+ 2018-04-12 17:17:40,459 [P12224/D2/T317] INFO  Umbraco.Web.ExamineStartup - Complete (took 3211ms)
+ 2018-04-12 17:17:40,459 [P12224/D2/T317] INFO  Umbraco.Core.MainDom - Released MainDom.
+ 2018-04-12 17:17:40,459 [P12224/D2/T317] INFO  Umbraco.Web.Scheduling.BackgroundTaskRunner - [ScheduledTasks] Terminating
+ 2018-04-12 17:17:40,459 [P12224/D2/T317] INFO  Umbraco.Web.Scheduling.BackgroundTaskRunner - [ScheduledTasks] Waiting for tasks to complete
+ 2018-04-12 17:17:40,459 [P12224/D2/T317] INFO  Umbraco.Web.Scheduling.BackgroundTaskRunner - [ScheduledPublishing] Terminating
+ 2018-04-12 17:17:40,459 [P12224/D2/T317] INFO  Umbraco.Web.Scheduling.BackgroundTaskRunner - [ScheduledPublishing] Waiting for tasks to complete
+ 2018-04-12 17:17:40,459 [P12224/D2/T97] INFO  Umbraco.Web.Scheduling.BackgroundTaskRunner - [ScheduledTasks] Tasks completed, terminated
+ 2018-04-12 17:17:40,459 [P12224/D2/T317] INFO  Umbraco.Web.Scheduling.BackgroundTaskRunner - [LogScrubber] Terminating
+ 2018-04-12 17:17:40,459 [P12224/D2/T317] INFO  Umbraco.Web.Scheduling.BackgroundTaskRunner - [LogScrubber] Waiting for tasks to complete
+ 2018-04-12 17:17:40,459 [P12224/D2/T12] INFO  Umbraco.Web.Scheduling.BackgroundTaskRunner - [ScheduledPublishing] Tasks completed, terminated
+ 2018-04-12 17:17:40,459 [P12224/D2/T317] INFO  Umbraco.Web.Scheduling.BackgroundTaskRunner - [InstructionProcessing] Terminating
+ 2018-04-12 17:17:40,459 [P12224/D2/T98] INFO  Umbraco.Web.Scheduling.BackgroundTaskRunner - [LogScrubber] Tasks completed, terminated
+ 2018-04-12 17:17:40,459 [P12224/D2/T317] INFO  Umbraco.Web.Scheduling.BackgroundTaskRunner - [InstructionProcessing] Waiting for tasks to complete
+ 2018-04-12 17:17:40,459 [P12224/D2/T317] INFO  Umbraco.Web.Scheduling.BackgroundTaskRunner - [Umbraco.Web.Scheduling.IBackgroundTask] Terminating
+ 2018-04-12 17:17:40,459 [P12224/D2/T317] INFO  Umbraco.Web.Scheduling.BackgroundTaskRunner - [Umbraco.Web.Scheduling.IBackgroundTask] Waiting for tasks to complete
+ 2018-04-12 17:17:40,459 [P12224/D2/T87] INFO  Umbraco.Web.Scheduling.BackgroundTaskRunner - [InstructionProcessing] Tasks completed, terminated
+ 2018-04-12 17:17:40,459 [P12224/D2/T38] INFO  Umbraco.Web.Scheduling.BackgroundTaskRunner - [Umbraco.Web.Scheduling.IBackgroundTask] Tasks completed, terminated

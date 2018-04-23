@@ -19,7 +19,7 @@ using Umbraco.ModelsBuilder;
 using Umbraco.ModelsBuilder.Umbraco;
 
 [assembly: PureLiveAssembly]
-[assembly:ModelsBuilderAssembly(PureLive = true, SourceHash = "1de48f6ed4e2cfff")]
+[assembly:ModelsBuilderAssembly(PureLive = true, SourceHash = "6d6fabcd9d3ffa94")]
 [assembly:System.Reflection.AssemblyVersion("0.0.0.3")]
 
 namespace Umbraco.Web.PublishedContentModels
@@ -52,7 +52,7 @@ namespace Umbraco.Web.PublishedContentModels
 
 	/// <summary>Trang Chủ</summary>
 	[PublishedContentModel("trangChu")]
-	public partial class TrangChu : Page
+	public partial class TrangChu : Page, IFooterControl
 	{
 #pragma warning disable 0109 // new is redundant
 		public new const string ModelTypeAlias = "trangChu";
@@ -74,11 +74,47 @@ namespace Umbraco.Web.PublishedContentModels
 		{
 			return PublishedContentModelUtility.GetModelPropertyType(GetModelContentType(), selector);
 		}
+
+		///<summary>
+		/// Slide
+		///</summary>
+		[ImplementPropertyType("slide")]
+		public IEnumerable<IPublishedContent> Slide
+		{
+			get { return this.GetPropertyValue<IEnumerable<IPublishedContent>>("slide"); }
+		}
+
+		///<summary>
+		/// Liên Kết
+		///</summary>
+		[ImplementPropertyType("lienKet")]
+		public Umbraco.Web.Models.RelatedLinks LienKet
+		{
+			get { return Umbraco.Web.PublishedContentModels.FooterControl.GetLienKet(this); }
+		}
+
+		///<summary>
+		/// Nội Dung
+		///</summary>
+		[ImplementPropertyType("noiDung")]
+		public IHtmlString NoiDung
+		{
+			get { return Umbraco.Web.PublishedContentModels.FooterControl.GetNoiDung(this); }
+		}
+
+		///<summary>
+		/// Tiêu Đề
+		///</summary>
+		[ImplementPropertyType("tieuDe")]
+		public string TieuDe
+		{
+			get { return Umbraco.Web.PublishedContentModels.FooterControl.GetTieuDe(this); }
+		}
 	}
 
 	/// <summary>Tin Tức</summary>
 	[PublishedContentModel("tinTuc")]
-	public partial class TinTuc : Page
+	public partial class TinTuc : Page, ICaiDat
 	{
 #pragma warning disable 0109 // new is redundant
 		public new const string ModelTypeAlias = "tinTuc";
@@ -99,6 +135,15 @@ namespace Umbraco.Web.PublishedContentModels
 		public static PublishedPropertyType GetModelPropertyType<TValue>(Expression<Func<TinTuc, TValue>> selector)
 		{
 			return PublishedContentModelUtility.GetModelPropertyType(GetModelContentType(), selector);
+		}
+
+		///<summary>
+		/// Ẩn Trên Menu
+		///</summary>
+		[ImplementPropertyType("umbracoNaviHide")]
+		public bool UmbracoNaviHide
+		{
+			get { return Umbraco.Web.PublishedContentModels.CaiDat.GetUmbracoNaviHide(this); }
 		}
 	}
 
@@ -130,7 +175,7 @@ namespace Umbraco.Web.PublishedContentModels
 
 	/// <summary>Giới Thiệu</summary>
 	[PublishedContentModel("gioiThieu")]
-	public partial class GioiThieu : Page
+	public partial class GioiThieu : Page, ICaiDat, IMisc
 	{
 #pragma warning disable 0109 // new is redundant
 		public new const string ModelTypeAlias = "gioiThieu";
@@ -152,11 +197,20 @@ namespace Umbraco.Web.PublishedContentModels
 		{
 			return PublishedContentModelUtility.GetModelPropertyType(GetModelContentType(), selector);
 		}
+
+		///<summary>
+		/// Ẩn Trên Menu
+		///</summary>
+		[ImplementPropertyType("umbracoNaviHide")]
+		public bool UmbracoNaviHide
+		{
+			get { return Umbraco.Web.PublishedContentModels.CaiDat.GetUmbracoNaviHide(this); }
+		}
 	}
 
 	/// <summary>Đào Tạo</summary>
 	[PublishedContentModel("daoTao")]
-	public partial class DaoTao : Page
+	public partial class DaoTao : Page, ICaiDat
 	{
 #pragma warning disable 0109 // new is redundant
 		public new const string ModelTypeAlias = "daoTao";
@@ -178,11 +232,20 @@ namespace Umbraco.Web.PublishedContentModels
 		{
 			return PublishedContentModelUtility.GetModelPropertyType(GetModelContentType(), selector);
 		}
+
+		///<summary>
+		/// Ẩn Trên Menu
+		///</summary>
+		[ImplementPropertyType("umbracoNaviHide")]
+		public bool UmbracoNaviHide
+		{
+			get { return Umbraco.Web.PublishedContentModels.CaiDat.GetUmbracoNaviHide(this); }
+		}
 	}
 
 	/// <summary>Tuyển Sinh</summary>
 	[PublishedContentModel("tuyenSinh")]
-	public partial class TuyenSinh : Page
+	public partial class TuyenSinh : Page, ICaiDat
 	{
 #pragma warning disable 0109 // new is redundant
 		public new const string ModelTypeAlias = "tuyenSinh";
@@ -204,11 +267,26 @@ namespace Umbraco.Web.PublishedContentModels
 		{
 			return PublishedContentModelUtility.GetModelPropertyType(GetModelContentType(), selector);
 		}
+
+		///<summary>
+		/// Ẩn Trên Menu
+		///</summary>
+		[ImplementPropertyType("umbracoNaviHide")]
+		public bool UmbracoNaviHide
+		{
+			get { return Umbraco.Web.PublishedContentModels.CaiDat.GetUmbracoNaviHide(this); }
+		}
+	}
+
+	// Mixin content Type 1080 with alias "misc"
+	/// <summary>Misc</summary>
+	public partial interface IMisc : IPublishedContent
+	{
 	}
 
 	/// <summary>Misc</summary>
 	[PublishedContentModel("misc")]
-	public partial class Misc : PublishedContentModel
+	public partial class Misc : PublishedContentModel, IMisc
 	{
 #pragma warning disable 0109 // new is redundant
 		public new const string ModelTypeAlias = "misc";
@@ -267,9 +345,1361 @@ namespace Umbraco.Web.PublishedContentModels
 		}
 	}
 
-	/// <summary>Giới Thiệu Chung</summary>
+	/// <summary>ĐT Giới Thiệu Chung</summary>
+	[PublishedContentModel("dTGioiThieuChung")]
+	public partial class DTgioiThieuChung : Page, IGioiThieuItem
+	{
+#pragma warning disable 0109 // new is redundant
+		public new const string ModelTypeAlias = "dTGioiThieuChung";
+		public new const PublishedItemType ModelItemType = PublishedItemType.Content;
+#pragma warning restore 0109
+
+		public DTgioiThieuChung(IPublishedContent content)
+			: base(content)
+		{ }
+
+#pragma warning disable 0109 // new is redundant
+		public new static PublishedContentType GetModelContentType()
+		{
+			return PublishedContentType.Get(ModelItemType, ModelTypeAlias);
+		}
+#pragma warning restore 0109
+
+		public static PublishedPropertyType GetModelPropertyType<TValue>(Expression<Func<DTgioiThieuChung, TValue>> selector)
+		{
+			return PublishedContentModelUtility.GetModelPropertyType(GetModelContentType(), selector);
+		}
+
+		///<summary>
+		/// Nội Dung
+		///</summary>
+		[ImplementPropertyType("noiDung")]
+		public IHtmlString NoiDung
+		{
+			get { return Umbraco.Web.PublishedContentModels.GioiThieuItem.GetNoiDung(this); }
+		}
+	}
+
+	/// <summary>ĐT Đào Tạo Chuyển Cấp Liên Thông</summary>
+	[PublishedContentModel("dTDaoTaoChuyenCapLienThong")]
+	public partial class DTdaoTaoChuyenCapLienThong : Page
+	{
+#pragma warning disable 0109 // new is redundant
+		public new const string ModelTypeAlias = "dTDaoTaoChuyenCapLienThong";
+		public new const PublishedItemType ModelItemType = PublishedItemType.Content;
+#pragma warning restore 0109
+
+		public DTdaoTaoChuyenCapLienThong(IPublishedContent content)
+			: base(content)
+		{ }
+
+#pragma warning disable 0109 // new is redundant
+		public new static PublishedContentType GetModelContentType()
+		{
+			return PublishedContentType.Get(ModelItemType, ModelTypeAlias);
+		}
+#pragma warning restore 0109
+
+		public static PublishedPropertyType GetModelPropertyType<TValue>(Expression<Func<DTdaoTaoChuyenCapLienThong, TValue>> selector)
+		{
+			return PublishedContentModelUtility.GetModelPropertyType(GetModelContentType(), selector);
+		}
+	}
+
+	/// <summary>ĐT Cam Kết Chuẩn Đầu Ra</summary>
+	[PublishedContentModel("dTCamKetChuanDauRa")]
+	public partial class DTcamKetChuanDauRa : Page
+	{
+#pragma warning disable 0109 // new is redundant
+		public new const string ModelTypeAlias = "dTCamKetChuanDauRa";
+		public new const PublishedItemType ModelItemType = PublishedItemType.Content;
+#pragma warning restore 0109
+
+		public DTcamKetChuanDauRa(IPublishedContent content)
+			: base(content)
+		{ }
+
+#pragma warning disable 0109 // new is redundant
+		public new static PublishedContentType GetModelContentType()
+		{
+			return PublishedContentType.Get(ModelItemType, ModelTypeAlias);
+		}
+#pragma warning restore 0109
+
+		public static PublishedPropertyType GetModelPropertyType<TValue>(Expression<Func<DTcamKetChuanDauRa, TValue>> selector)
+		{
+			return PublishedContentModelUtility.GetModelPropertyType(GetModelContentType(), selector);
+		}
+	}
+
+	/// <summary>ĐT Đào Tạo Đại Học</summary>
+	[PublishedContentModel("dTDaoTaoDaiHoc")]
+	public partial class DTdaoTaoDaiHoc : Page
+	{
+#pragma warning disable 0109 // new is redundant
+		public new const string ModelTypeAlias = "dTDaoTaoDaiHoc";
+		public new const PublishedItemType ModelItemType = PublishedItemType.Content;
+#pragma warning restore 0109
+
+		public DTdaoTaoDaiHoc(IPublishedContent content)
+			: base(content)
+		{ }
+
+#pragma warning disable 0109 // new is redundant
+		public new static PublishedContentType GetModelContentType()
+		{
+			return PublishedContentType.Get(ModelItemType, ModelTypeAlias);
+		}
+#pragma warning restore 0109
+
+		public static PublishedPropertyType GetModelPropertyType<TValue>(Expression<Func<DTdaoTaoDaiHoc, TValue>> selector)
+		{
+			return PublishedContentModelUtility.GetModelPropertyType(GetModelContentType(), selector);
+		}
+	}
+
+	/// <summary>ĐT Đào Tạo Sau Đại Học</summary>
+	[PublishedContentModel("dTDaoTaoSauDaiHoc")]
+	public partial class DTdaoTaoSauDaiHoc : Page
+	{
+#pragma warning disable 0109 // new is redundant
+		public new const string ModelTypeAlias = "dTDaoTaoSauDaiHoc";
+		public new const PublishedItemType ModelItemType = PublishedItemType.Content;
+#pragma warning restore 0109
+
+		public DTdaoTaoSauDaiHoc(IPublishedContent content)
+			: base(content)
+		{ }
+
+#pragma warning disable 0109 // new is redundant
+		public new static PublishedContentType GetModelContentType()
+		{
+			return PublishedContentType.Get(ModelItemType, ModelTypeAlias);
+		}
+#pragma warning restore 0109
+
+		public static PublishedPropertyType GetModelPropertyType<TValue>(Expression<Func<DTdaoTaoSauDaiHoc, TValue>> selector)
+		{
+			return PublishedContentModelUtility.GetModelPropertyType(GetModelContentType(), selector);
+		}
+	}
+
+	/// <summary>ĐT Tra Cứu Điểm Thi</summary>
+	[PublishedContentModel("dTTraCuuDiemThi")]
+	public partial class DTtraCuuDiemThi : Page
+	{
+#pragma warning disable 0109 // new is redundant
+		public new const string ModelTypeAlias = "dTTraCuuDiemThi";
+		public new const PublishedItemType ModelItemType = PublishedItemType.Content;
+#pragma warning restore 0109
+
+		public DTtraCuuDiemThi(IPublishedContent content)
+			: base(content)
+		{ }
+
+#pragma warning disable 0109 // new is redundant
+		public new static PublishedContentType GetModelContentType()
+		{
+			return PublishedContentType.Get(ModelItemType, ModelTypeAlias);
+		}
+#pragma warning restore 0109
+
+		public static PublishedPropertyType GetModelPropertyType<TValue>(Expression<Func<DTtraCuuDiemThi, TValue>> selector)
+		{
+			return PublishedContentModelUtility.GetModelPropertyType(GetModelContentType(), selector);
+		}
+	}
+
+	/// <summary>ĐT Bổ Túc Bồi Dưỡng</summary>
+	[PublishedContentModel("dTBoTucBoiDuong")]
+	public partial class DTboTucBoiDuong : Page
+	{
+#pragma warning disable 0109 // new is redundant
+		public new const string ModelTypeAlias = "dTBoTucBoiDuong";
+		public new const PublishedItemType ModelItemType = PublishedItemType.Content;
+#pragma warning restore 0109
+
+		public DTboTucBoiDuong(IPublishedContent content)
+			: base(content)
+		{ }
+
+#pragma warning disable 0109 // new is redundant
+		public new static PublishedContentType GetModelContentType()
+		{
+			return PublishedContentType.Get(ModelItemType, ModelTypeAlias);
+		}
+#pragma warning restore 0109
+
+		public static PublishedPropertyType GetModelPropertyType<TValue>(Expression<Func<DTboTucBoiDuong, TValue>> selector)
+		{
+			return PublishedContentModelUtility.GetModelPropertyType(GetModelContentType(), selector);
+		}
+	}
+
+	/// <summary>Nghiên Cứu Khoa Học</summary>
+	[PublishedContentModel("nghienCuuKhoaHoc")]
+	public partial class NghienCuuKhoaHoc : Page
+	{
+#pragma warning disable 0109 // new is redundant
+		public new const string ModelTypeAlias = "nghienCuuKhoaHoc";
+		public new const PublishedItemType ModelItemType = PublishedItemType.Content;
+#pragma warning restore 0109
+
+		public NghienCuuKhoaHoc(IPublishedContent content)
+			: base(content)
+		{ }
+
+#pragma warning disable 0109 // new is redundant
+		public new static PublishedContentType GetModelContentType()
+		{
+			return PublishedContentType.Get(ModelItemType, ModelTypeAlias);
+		}
+#pragma warning restore 0109
+
+		public static PublishedPropertyType GetModelPropertyType<TValue>(Expression<Func<NghienCuuKhoaHoc, TValue>> selector)
+		{
+			return PublishedContentModelUtility.GetModelPropertyType(GetModelContentType(), selector);
+		}
+	}
+
+	/// <summary>Cơ Sở Kỹ Thuật</summary>
+	[PublishedContentModel("coSoKyThuat")]
+	public partial class CoSoKyThuat : Page, ICaiDat
+	{
+#pragma warning disable 0109 // new is redundant
+		public new const string ModelTypeAlias = "coSoKyThuat";
+		public new const PublishedItemType ModelItemType = PublishedItemType.Content;
+#pragma warning restore 0109
+
+		public CoSoKyThuat(IPublishedContent content)
+			: base(content)
+		{ }
+
+#pragma warning disable 0109 // new is redundant
+		public new static PublishedContentType GetModelContentType()
+		{
+			return PublishedContentType.Get(ModelItemType, ModelTypeAlias);
+		}
+#pragma warning restore 0109
+
+		public static PublishedPropertyType GetModelPropertyType<TValue>(Expression<Func<CoSoKyThuat, TValue>> selector)
+		{
+			return PublishedContentModelUtility.GetModelPropertyType(GetModelContentType(), selector);
+		}
+
+		///<summary>
+		/// Ẩn Trên Menu
+		///</summary>
+		[ImplementPropertyType("umbracoNaviHide")]
+		public bool UmbracoNaviHide
+		{
+			get { return Umbraco.Web.PublishedContentModels.CaiDat.GetUmbracoNaviHide(this); }
+		}
+	}
+
+	/// <summary>Hợp Tác Quốc Tế</summary>
+	[PublishedContentModel("hopTacQuocTe")]
+	public partial class HopTacQuocTe : Page, ICaiDat
+	{
+#pragma warning disable 0109 // new is redundant
+		public new const string ModelTypeAlias = "hopTacQuocTe";
+		public new const PublishedItemType ModelItemType = PublishedItemType.Content;
+#pragma warning restore 0109
+
+		public HopTacQuocTe(IPublishedContent content)
+			: base(content)
+		{ }
+
+#pragma warning disable 0109 // new is redundant
+		public new static PublishedContentType GetModelContentType()
+		{
+			return PublishedContentType.Get(ModelItemType, ModelTypeAlias);
+		}
+#pragma warning restore 0109
+
+		public static PublishedPropertyType GetModelPropertyType<TValue>(Expression<Func<HopTacQuocTe, TValue>> selector)
+		{
+			return PublishedContentModelUtility.GetModelPropertyType(GetModelContentType(), selector);
+		}
+
+		///<summary>
+		/// Ẩn Trên Menu
+		///</summary>
+		[ImplementPropertyType("umbracoNaviHide")]
+		public bool UmbracoNaviHide
+		{
+			get { return Umbraco.Web.PublishedContentModels.CaiDat.GetUmbracoNaviHide(this); }
+		}
+	}
+
+	/// <summary>Thư Viện</summary>
+	[PublishedContentModel("thuVien")]
+	public partial class ThuVien : Page, ICaiDat, IImageListControls
+	{
+#pragma warning disable 0109 // new is redundant
+		public new const string ModelTypeAlias = "thuVien";
+		public new const PublishedItemType ModelItemType = PublishedItemType.Content;
+#pragma warning restore 0109
+
+		public ThuVien(IPublishedContent content)
+			: base(content)
+		{ }
+
+#pragma warning disable 0109 // new is redundant
+		public new static PublishedContentType GetModelContentType()
+		{
+			return PublishedContentType.Get(ModelItemType, ModelTypeAlias);
+		}
+#pragma warning restore 0109
+
+		public static PublishedPropertyType GetModelPropertyType<TValue>(Expression<Func<ThuVien, TValue>> selector)
+		{
+			return PublishedContentModelUtility.GetModelPropertyType(GetModelContentType(), selector);
+		}
+
+		///<summary>
+		/// Ẩn Trên Menu
+		///</summary>
+		[ImplementPropertyType("umbracoNaviHide")]
+		public bool UmbracoNaviHide
+		{
+			get { return Umbraco.Web.PublishedContentModels.CaiDat.GetUmbracoNaviHide(this); }
+		}
+
+		///<summary>
+		/// Image List
+		///</summary>
+		[ImplementPropertyType("imageList")]
+		public IEnumerable<IPublishedContent> ImageList
+		{
+			get { return Umbraco.Web.PublishedContentModels.ImageListControls.GetImageList(this); }
+		}
+	}
+
+	/// <summary>Đảm Bảo Chất Lượng</summary>
+	[PublishedContentModel("damBaoChatLuong")]
+	public partial class DamBaoChatLuong : Page, ICaiDat
+	{
+#pragma warning disable 0109 // new is redundant
+		public new const string ModelTypeAlias = "damBaoChatLuong";
+		public new const PublishedItemType ModelItemType = PublishedItemType.Content;
+#pragma warning restore 0109
+
+		public DamBaoChatLuong(IPublishedContent content)
+			: base(content)
+		{ }
+
+#pragma warning disable 0109 // new is redundant
+		public new static PublishedContentType GetModelContentType()
+		{
+			return PublishedContentType.Get(ModelItemType, ModelTypeAlias);
+		}
+#pragma warning restore 0109
+
+		public static PublishedPropertyType GetModelPropertyType<TValue>(Expression<Func<DamBaoChatLuong, TValue>> selector)
+		{
+			return PublishedContentModelUtility.GetModelPropertyType(GetModelContentType(), selector);
+		}
+
+		///<summary>
+		/// Ẩn Trên Menu
+		///</summary>
+		[ImplementPropertyType("umbracoNaviHide")]
+		public bool UmbracoNaviHide
+		{
+			get { return Umbraco.Web.PublishedContentModels.CaiDat.GetUmbracoNaviHide(this); }
+		}
+	}
+
+	/// <summary>Học Sinh Sinh Viên</summary>
+	[PublishedContentModel("hocSinhSinhVien")]
+	public partial class HocSinhSinhVien : Page, ICaiDat
+	{
+#pragma warning disable 0109 // new is redundant
+		public new const string ModelTypeAlias = "hocSinhSinhVien";
+		public new const PublishedItemType ModelItemType = PublishedItemType.Content;
+#pragma warning restore 0109
+
+		public HocSinhSinhVien(IPublishedContent content)
+			: base(content)
+		{ }
+
+#pragma warning disable 0109 // new is redundant
+		public new static PublishedContentType GetModelContentType()
+		{
+			return PublishedContentType.Get(ModelItemType, ModelTypeAlias);
+		}
+#pragma warning restore 0109
+
+		public static PublishedPropertyType GetModelPropertyType<TValue>(Expression<Func<HocSinhSinhVien, TValue>> selector)
+		{
+			return PublishedContentModelUtility.GetModelPropertyType(GetModelContentType(), selector);
+		}
+
+		///<summary>
+		/// Ẩn Trên Menu
+		///</summary>
+		[ImplementPropertyType("umbracoNaviHide")]
+		public bool UmbracoNaviHide
+		{
+			get { return Umbraco.Web.PublishedContentModels.CaiDat.GetUmbracoNaviHide(this); }
+		}
+	}
+
+	/// <summary>Liên Hệ</summary>
+	[PublishedContentModel("lienHe")]
+	public partial class LienHe : Page, ICaiDat
+	{
+#pragma warning disable 0109 // new is redundant
+		public new const string ModelTypeAlias = "lienHe";
+		public new const PublishedItemType ModelItemType = PublishedItemType.Content;
+#pragma warning restore 0109
+
+		public LienHe(IPublishedContent content)
+			: base(content)
+		{ }
+
+#pragma warning disable 0109 // new is redundant
+		public new static PublishedContentType GetModelContentType()
+		{
+			return PublishedContentType.Get(ModelItemType, ModelTypeAlias);
+		}
+#pragma warning restore 0109
+
+		public static PublishedPropertyType GetModelPropertyType<TValue>(Expression<Func<LienHe, TValue>> selector)
+		{
+			return PublishedContentModelUtility.GetModelPropertyType(GetModelContentType(), selector);
+		}
+
+		///<summary>
+		/// Ẩn Trên Menu
+		///</summary>
+		[ImplementPropertyType("umbracoNaviHide")]
+		public bool UmbracoNaviHide
+		{
+			get { return Umbraco.Web.PublishedContentModels.CaiDat.GetUmbracoNaviHide(this); }
+		}
+	}
+
+	/// <summary>Tin Tức Item</summary>
+	[PublishedContentModel("tinTucItem")]
+	public partial class TinTucItem : Misc
+	{
+#pragma warning disable 0109 // new is redundant
+		public new const string ModelTypeAlias = "tinTucItem";
+		public new const PublishedItemType ModelItemType = PublishedItemType.Content;
+#pragma warning restore 0109
+
+		public TinTucItem(IPublishedContent content)
+			: base(content)
+		{ }
+
+#pragma warning disable 0109 // new is redundant
+		public new static PublishedContentType GetModelContentType()
+		{
+			return PublishedContentType.Get(ModelItemType, ModelTypeAlias);
+		}
+#pragma warning restore 0109
+
+		public static PublishedPropertyType GetModelPropertyType<TValue>(Expression<Func<TinTucItem, TValue>> selector)
+		{
+			return PublishedContentModelUtility.GetModelPropertyType(GetModelContentType(), selector);
+		}
+
+		///<summary>
+		/// Hình Ảnh
+		///</summary>
+		[ImplementPropertyType("hinhAnh")]
+		public IPublishedContent HinhAnh
+		{
+			get { return this.GetPropertyValue<IPublishedContent>("hinhAnh"); }
+		}
+
+		///<summary>
+		/// Nội Dung
+		///</summary>
+		[ImplementPropertyType("noiDung")]
+		public IHtmlString NoiDung
+		{
+			get { return this.GetPropertyValue<IHtmlString>("noiDung"); }
+		}
+
+		///<summary>
+		/// Tác Giả
+		///</summary>
+		[ImplementPropertyType("tacGia")]
+		public string TacGia
+		{
+			get { return this.GetPropertyValue<string>("tacGia"); }
+		}
+
+		///<summary>
+		/// Tiêu Đề
+		///</summary>
+		[ImplementPropertyType("tieuDe")]
+		public string TieuDe
+		{
+			get { return this.GetPropertyValue<string>("tieuDe"); }
+		}
+	}
+
+	/// <summary>Slide Item</summary>
+	[PublishedContentModel("slideItem")]
+	public partial class SlideItem : Misc
+	{
+#pragma warning disable 0109 // new is redundant
+		public new const string ModelTypeAlias = "slideItem";
+		public new const PublishedItemType ModelItemType = PublishedItemType.Content;
+#pragma warning restore 0109
+
+		public SlideItem(IPublishedContent content)
+			: base(content)
+		{ }
+
+#pragma warning disable 0109 // new is redundant
+		public new static PublishedContentType GetModelContentType()
+		{
+			return PublishedContentType.Get(ModelItemType, ModelTypeAlias);
+		}
+#pragma warning restore 0109
+
+		public static PublishedPropertyType GetModelPropertyType<TValue>(Expression<Func<SlideItem, TValue>> selector)
+		{
+			return PublishedContentModelUtility.GetModelPropertyType(GetModelContentType(), selector);
+		}
+
+		///<summary>
+		/// Hình Ảnh
+		///</summary>
+		[ImplementPropertyType("hinhAnh")]
+		public IPublishedContent HinhAnh
+		{
+			get { return this.GetPropertyValue<IPublishedContent>("hinhAnh"); }
+		}
+
+		///<summary>
+		/// Link
+		///</summary>
+		[ImplementPropertyType("link")]
+		public string Link
+		{
+			get { return this.GetPropertyValue<string>("link"); }
+		}
+
+		///<summary>
+		/// Tiêu Đề
+		///</summary>
+		[ImplementPropertyType("tieuDe")]
+		public string TieuDe
+		{
+			get { return this.GetPropertyValue<string>("tieuDe"); }
+		}
+	}
+
+	// Mixin content Type 1309 with alias "caiDat"
+	/// <summary>Cài Đặt</summary>
+	public partial interface ICaiDat : IPublishedContent
+	{
+		/// <summary>Ẩn Trên Menu</summary>
+		bool UmbracoNaviHide { get; }
+	}
+
+	/// <summary>Cài Đặt</summary>
+	[PublishedContentModel("caiDat")]
+	public partial class CaiDat : PublishedContentModel, ICaiDat
+	{
+#pragma warning disable 0109 // new is redundant
+		public new const string ModelTypeAlias = "caiDat";
+		public new const PublishedItemType ModelItemType = PublishedItemType.Content;
+#pragma warning restore 0109
+
+		public CaiDat(IPublishedContent content)
+			: base(content)
+		{ }
+
+#pragma warning disable 0109 // new is redundant
+		public new static PublishedContentType GetModelContentType()
+		{
+			return PublishedContentType.Get(ModelItemType, ModelTypeAlias);
+		}
+#pragma warning restore 0109
+
+		public static PublishedPropertyType GetModelPropertyType<TValue>(Expression<Func<CaiDat, TValue>> selector)
+		{
+			return PublishedContentModelUtility.GetModelPropertyType(GetModelContentType(), selector);
+		}
+
+		///<summary>
+		/// Ẩn Trên Menu
+		///</summary>
+		[ImplementPropertyType("umbracoNaviHide")]
+		public bool UmbracoNaviHide
+		{
+			get { return GetUmbracoNaviHide(this); }
+		}
+
+		/// <summary>Static getter for Ẩn Trên Menu</summary>
+		public static bool GetUmbracoNaviHide(ICaiDat that) { return that.GetPropertyValue<bool>("umbracoNaviHide"); }
+	}
+
+	/// <summary>CSKT Năng Lực Các Cơ Sở</summary>
+	[PublishedContentModel("cSKTNangLucCacCoSo")]
+	public partial class CSktnangLucCacCoSo : Page
+	{
+#pragma warning disable 0109 // new is redundant
+		public new const string ModelTypeAlias = "cSKTNangLucCacCoSo";
+		public new const PublishedItemType ModelItemType = PublishedItemType.Content;
+#pragma warning restore 0109
+
+		public CSktnangLucCacCoSo(IPublishedContent content)
+			: base(content)
+		{ }
+
+#pragma warning disable 0109 // new is redundant
+		public new static PublishedContentType GetModelContentType()
+		{
+			return PublishedContentType.Get(ModelItemType, ModelTypeAlias);
+		}
+#pragma warning restore 0109
+
+		public static PublishedPropertyType GetModelPropertyType<TValue>(Expression<Func<CSktnangLucCacCoSo, TValue>> selector)
+		{
+			return PublishedContentModelUtility.GetModelPropertyType(GetModelContentType(), selector);
+		}
+	}
+
+	/// <summary>CSKT Khai Thác Cơ Sở Kỹ Thuật</summary>
+	[PublishedContentModel("cSKTKhaiThacCoSoKyThuat")]
+	public partial class CSktkhaiThacCoSoKyThuat : Page
+	{
+#pragma warning disable 0109 // new is redundant
+		public new const string ModelTypeAlias = "cSKTKhaiThacCoSoKyThuat";
+		public new const PublishedItemType ModelItemType = PublishedItemType.Content;
+#pragma warning restore 0109
+
+		public CSktkhaiThacCoSoKyThuat(IPublishedContent content)
+			: base(content)
+		{ }
+
+#pragma warning disable 0109 // new is redundant
+		public new static PublishedContentType GetModelContentType()
+		{
+			return PublishedContentType.Get(ModelItemType, ModelTypeAlias);
+		}
+#pragma warning restore 0109
+
+		public static PublishedPropertyType GetModelPropertyType<TValue>(Expression<Func<CSktkhaiThacCoSoKyThuat, TValue>> selector)
+		{
+			return PublishedContentModelUtility.GetModelPropertyType(GetModelContentType(), selector);
+		}
+	}
+
+	/// <summary>ĐBCL Hệ Thống ĐBCL</summary>
+	[PublishedContentModel("dBCLHeThongDBCL")]
+	public partial class DBclheThongDbcl : Page
+	{
+#pragma warning disable 0109 // new is redundant
+		public new const string ModelTypeAlias = "dBCLHeThongDBCL";
+		public new const PublishedItemType ModelItemType = PublishedItemType.Content;
+#pragma warning restore 0109
+
+		public DBclheThongDbcl(IPublishedContent content)
+			: base(content)
+		{ }
+
+#pragma warning disable 0109 // new is redundant
+		public new static PublishedContentType GetModelContentType()
+		{
+			return PublishedContentType.Get(ModelItemType, ModelTypeAlias);
+		}
+#pragma warning restore 0109
+
+		public static PublishedPropertyType GetModelPropertyType<TValue>(Expression<Func<DBclheThongDbcl, TValue>> selector)
+		{
+			return PublishedContentModelUtility.GetModelPropertyType(GetModelContentType(), selector);
+		}
+	}
+
+	/// <summary>ĐBCL Kiểm Định Chất Lượng</summary>
+	[PublishedContentModel("dBCLKiemDinhChatLuong")]
+	public partial class DBclkiemDinhChatLuong : Page
+	{
+#pragma warning disable 0109 // new is redundant
+		public new const string ModelTypeAlias = "dBCLKiemDinhChatLuong";
+		public new const PublishedItemType ModelItemType = PublishedItemType.Content;
+#pragma warning restore 0109
+
+		public DBclkiemDinhChatLuong(IPublishedContent content)
+			: base(content)
+		{ }
+
+#pragma warning disable 0109 // new is redundant
+		public new static PublishedContentType GetModelContentType()
+		{
+			return PublishedContentType.Get(ModelItemType, ModelTypeAlias);
+		}
+#pragma warning restore 0109
+
+		public static PublishedPropertyType GetModelPropertyType<TValue>(Expression<Func<DBclkiemDinhChatLuong, TValue>> selector)
+		{
+			return PublishedContentModelUtility.GetModelPropertyType(GetModelContentType(), selector);
+		}
+	}
+
+	/// <summary>ĐBCL Văn Bản Pháp Quy</summary>
+	[PublishedContentModel("dBCLVanBanPhapQuy")]
+	public partial class DBclvanBanPhapQuy : Page
+	{
+#pragma warning disable 0109 // new is redundant
+		public new const string ModelTypeAlias = "dBCLVanBanPhapQuy";
+		public new const PublishedItemType ModelItemType = PublishedItemType.Content;
+#pragma warning restore 0109
+
+		public DBclvanBanPhapQuy(IPublishedContent content)
+			: base(content)
+		{ }
+
+#pragma warning disable 0109 // new is redundant
+		public new static PublishedContentType GetModelContentType()
+		{
+			return PublishedContentType.Get(ModelItemType, ModelTypeAlias);
+		}
+#pragma warning restore 0109
+
+		public static PublishedPropertyType GetModelPropertyType<TValue>(Expression<Func<DBclvanBanPhapQuy, TValue>> selector)
+		{
+			return PublishedContentModelUtility.GetModelPropertyType(GetModelContentType(), selector);
+		}
+	}
+
+	/// <summary>ĐBCL Ý Kiến Phản Hồi</summary>
+	[PublishedContentModel("dBCLYKienPhanHoi")]
+	public partial class DBclykienPhanHoi : Page
+	{
+#pragma warning disable 0109 // new is redundant
+		public new const string ModelTypeAlias = "dBCLYKienPhanHoi";
+		public new const PublishedItemType ModelItemType = PublishedItemType.Content;
+#pragma warning restore 0109
+
+		public DBclykienPhanHoi(IPublishedContent content)
+			: base(content)
+		{ }
+
+#pragma warning disable 0109 // new is redundant
+		public new static PublishedContentType GetModelContentType()
+		{
+			return PublishedContentType.Get(ModelItemType, ModelTypeAlias);
+		}
+#pragma warning restore 0109
+
+		public static PublishedPropertyType GetModelPropertyType<TValue>(Expression<Func<DBclykienPhanHoi, TValue>> selector)
+		{
+			return PublishedContentModelUtility.GetModelPropertyType(GetModelContentType(), selector);
+		}
+	}
+
+	/// <summary>HSSV Các Văn Bản Biểu Mẫu</summary>
+	[PublishedContentModel("hSSVCacVanBanBieuMau")]
+	public partial class HSsvcacVanBanBieuMau : Page
+	{
+#pragma warning disable 0109 // new is redundant
+		public new const string ModelTypeAlias = "hSSVCacVanBanBieuMau";
+		public new const PublishedItemType ModelItemType = PublishedItemType.Content;
+#pragma warning restore 0109
+
+		public HSsvcacVanBanBieuMau(IPublishedContent content)
+			: base(content)
+		{ }
+
+#pragma warning disable 0109 // new is redundant
+		public new static PublishedContentType GetModelContentType()
+		{
+			return PublishedContentType.Get(ModelItemType, ModelTypeAlias);
+		}
+#pragma warning restore 0109
+
+		public static PublishedPropertyType GetModelPropertyType<TValue>(Expression<Func<HSsvcacVanBanBieuMau, TValue>> selector)
+		{
+			return PublishedContentModelUtility.GetModelPropertyType(GetModelContentType(), selector);
+		}
+	}
+
+	/// <summary>HSSV Giới Thiệu Chung</summary>
+	[PublishedContentModel("hSSVGioiThieuChung")]
+	public partial class HSsvgioiThieuChung : Page, IGioiThieuItem
+	{
+#pragma warning disable 0109 // new is redundant
+		public new const string ModelTypeAlias = "hSSVGioiThieuChung";
+		public new const PublishedItemType ModelItemType = PublishedItemType.Content;
+#pragma warning restore 0109
+
+		public HSsvgioiThieuChung(IPublishedContent content)
+			: base(content)
+		{ }
+
+#pragma warning disable 0109 // new is redundant
+		public new static PublishedContentType GetModelContentType()
+		{
+			return PublishedContentType.Get(ModelItemType, ModelTypeAlias);
+		}
+#pragma warning restore 0109
+
+		public static PublishedPropertyType GetModelPropertyType<TValue>(Expression<Func<HSsvgioiThieuChung, TValue>> selector)
+		{
+			return PublishedContentModelUtility.GetModelPropertyType(GetModelContentType(), selector);
+		}
+
+		///<summary>
+		/// Nội Dung
+		///</summary>
+		[ImplementPropertyType("noiDung")]
+		public IHtmlString NoiDung
+		{
+			get { return Umbraco.Web.PublishedContentModels.GioiThieuItem.GetNoiDung(this); }
+		}
+	}
+
+	/// <summary>HSSV Hoạt Động Đoàn Thanh Niên</summary>
+	[PublishedContentModel("hSSVHoatDongDoanThanhNien")]
+	public partial class HSsvhoatDongDoanThanhNien : Page
+	{
+#pragma warning disable 0109 // new is redundant
+		public new const string ModelTypeAlias = "hSSVHoatDongDoanThanhNien";
+		public new const PublishedItemType ModelItemType = PublishedItemType.Content;
+#pragma warning restore 0109
+
+		public HSsvhoatDongDoanThanhNien(IPublishedContent content)
+			: base(content)
+		{ }
+
+#pragma warning disable 0109 // new is redundant
+		public new static PublishedContentType GetModelContentType()
+		{
+			return PublishedContentType.Get(ModelItemType, ModelTypeAlias);
+		}
+#pragma warning restore 0109
+
+		public static PublishedPropertyType GetModelPropertyType<TValue>(Expression<Func<HSsvhoatDongDoanThanhNien, TValue>> selector)
+		{
+			return PublishedContentModelUtility.GetModelPropertyType(GetModelContentType(), selector);
+		}
+	}
+
+	/// <summary>HSSV Hoạt Động NCKH</summary>
+	[PublishedContentModel("hSSVHoatDongNCKH")]
+	public partial class HSsvhoatDongNckh : Page
+	{
+#pragma warning disable 0109 // new is redundant
+		public new const string ModelTypeAlias = "hSSVHoatDongNCKH";
+		public new const PublishedItemType ModelItemType = PublishedItemType.Content;
+#pragma warning restore 0109
+
+		public HSsvhoatDongNckh(IPublishedContent content)
+			: base(content)
+		{ }
+
+#pragma warning disable 0109 // new is redundant
+		public new static PublishedContentType GetModelContentType()
+		{
+			return PublishedContentType.Get(ModelItemType, ModelTypeAlias);
+		}
+#pragma warning restore 0109
+
+		public static PublishedPropertyType GetModelPropertyType<TValue>(Expression<Func<HSsvhoatDongNckh, TValue>> selector)
+		{
+			return PublishedContentModelUtility.GetModelPropertyType(GetModelContentType(), selector);
+		}
+	}
+
+	/// <summary>HSSV Học Bổng</summary>
+	[PublishedContentModel("hSSVHocBong")]
+	public partial class HSsvhocBong : Page
+	{
+#pragma warning disable 0109 // new is redundant
+		public new const string ModelTypeAlias = "hSSVHocBong";
+		public new const PublishedItemType ModelItemType = PublishedItemType.Content;
+#pragma warning restore 0109
+
+		public HSsvhocBong(IPublishedContent content)
+			: base(content)
+		{ }
+
+#pragma warning disable 0109 // new is redundant
+		public new static PublishedContentType GetModelContentType()
+		{
+			return PublishedContentType.Get(ModelItemType, ModelTypeAlias);
+		}
+#pragma warning restore 0109
+
+		public static PublishedPropertyType GetModelPropertyType<TValue>(Expression<Func<HSsvhocBong, TValue>> selector)
+		{
+			return PublishedContentModelUtility.GetModelPropertyType(GetModelContentType(), selector);
+		}
+	}
+
+	/// <summary>HSSV Ký Túc Xá</summary>
+	[PublishedContentModel("hSSVKyTucXa")]
+	public partial class HSsvkyTucXa : Page
+	{
+#pragma warning disable 0109 // new is redundant
+		public new const string ModelTypeAlias = "hSSVKyTucXa";
+		public new const PublishedItemType ModelItemType = PublishedItemType.Content;
+#pragma warning restore 0109
+
+		public HSsvkyTucXa(IPublishedContent content)
+			: base(content)
+		{ }
+
+#pragma warning disable 0109 // new is redundant
+		public new static PublishedContentType GetModelContentType()
+		{
+			return PublishedContentType.Get(ModelItemType, ModelTypeAlias);
+		}
+#pragma warning restore 0109
+
+		public static PublishedPropertyType GetModelPropertyType<TValue>(Expression<Func<HSsvkyTucXa, TValue>> selector)
+		{
+			return PublishedContentModelUtility.GetModelPropertyType(GetModelContentType(), selector);
+		}
+	}
+
+	/// <summary>NCKH Các Chương Trình Dự Án Đề Tài</summary>
+	[PublishedContentModel("nCKHCacChuongTrinhDuAnDeTai")]
+	public partial class NCkhcacChuongTrinhDuAnDeTai : Page
+	{
+#pragma warning disable 0109 // new is redundant
+		public new const string ModelTypeAlias = "nCKHCacChuongTrinhDuAnDeTai";
+		public new const PublishedItemType ModelItemType = PublishedItemType.Content;
+#pragma warning restore 0109
+
+		public NCkhcacChuongTrinhDuAnDeTai(IPublishedContent content)
+			: base(content)
+		{ }
+
+#pragma warning disable 0109 // new is redundant
+		public new static PublishedContentType GetModelContentType()
+		{
+			return PublishedContentType.Get(ModelItemType, ModelTypeAlias);
+		}
+#pragma warning restore 0109
+
+		public static PublishedPropertyType GetModelPropertyType<TValue>(Expression<Func<NCkhcacChuongTrinhDuAnDeTai, TValue>> selector)
+		{
+			return PublishedContentModelUtility.GetModelPropertyType(GetModelContentType(), selector);
+		}
+	}
+
+	/// <summary>NCKH Các Hội Đồng Khoa Học</summary>
+	[PublishedContentModel("nCKHCacHoiDongKhoaHoc")]
+	public partial class NCkhcacHoiDongKhoaHoc : Page
+	{
+#pragma warning disable 0109 // new is redundant
+		public new const string ModelTypeAlias = "nCKHCacHoiDongKhoaHoc";
+		public new const PublishedItemType ModelItemType = PublishedItemType.Content;
+#pragma warning restore 0109
+
+		public NCkhcacHoiDongKhoaHoc(IPublishedContent content)
+			: base(content)
+		{ }
+
+#pragma warning disable 0109 // new is redundant
+		public new static PublishedContentType GetModelContentType()
+		{
+			return PublishedContentType.Get(ModelItemType, ModelTypeAlias);
+		}
+#pragma warning restore 0109
+
+		public static PublishedPropertyType GetModelPropertyType<TValue>(Expression<Func<NCkhcacHoiDongKhoaHoc, TValue>> selector)
+		{
+			return PublishedContentModelUtility.GetModelPropertyType(GetModelContentType(), selector);
+		}
+	}
+
+	/// <summary>NCKH Các Nhóm Nghiên Cứu</summary>
+	[PublishedContentModel("nCKHCacNhomNghienCuu")]
+	public partial class NCkhcacNhomNghienCuu : Page
+	{
+#pragma warning disable 0109 // new is redundant
+		public new const string ModelTypeAlias = "nCKHCacNhomNghienCuu";
+		public new const PublishedItemType ModelItemType = PublishedItemType.Content;
+#pragma warning restore 0109
+
+		public NCkhcacNhomNghienCuu(IPublishedContent content)
+			: base(content)
+		{ }
+
+#pragma warning disable 0109 // new is redundant
+		public new static PublishedContentType GetModelContentType()
+		{
+			return PublishedContentType.Get(ModelItemType, ModelTypeAlias);
+		}
+#pragma warning restore 0109
+
+		public static PublishedPropertyType GetModelPropertyType<TValue>(Expression<Func<NCkhcacNhomNghienCuu, TValue>> selector)
+		{
+			return PublishedContentModelUtility.GetModelPropertyType(GetModelContentType(), selector);
+		}
+	}
+
+	/// <summary>NCKH Các Sản Phẩm Khoa Học</summary>
+	[PublishedContentModel("nCKHCacSanPhamKhoaHoc")]
+	public partial class NCkhcacSanPhamKhoaHoc : Page
+	{
+#pragma warning disable 0109 // new is redundant
+		public new const string ModelTypeAlias = "nCKHCacSanPhamKhoaHoc";
+		public new const PublishedItemType ModelItemType = PublishedItemType.Content;
+#pragma warning restore 0109
+
+		public NCkhcacSanPhamKhoaHoc(IPublishedContent content)
+			: base(content)
+		{ }
+
+#pragma warning disable 0109 // new is redundant
+		public new static PublishedContentType GetModelContentType()
+		{
+			return PublishedContentType.Get(ModelItemType, ModelTypeAlias);
+		}
+#pragma warning restore 0109
+
+		public static PublishedPropertyType GetModelPropertyType<TValue>(Expression<Func<NCkhcacSanPhamKhoaHoc, TValue>> selector)
+		{
+			return PublishedContentModelUtility.GetModelPropertyType(GetModelContentType(), selector);
+		}
+	}
+
+	/// <summary>NCKH Giới Thiệu Chung</summary>
+	[PublishedContentModel("nCKHGioiThieuChung")]
+	public partial class NCkhgioiThieuChung : Page, IGioiThieuItem
+	{
+#pragma warning disable 0109 // new is redundant
+		public new const string ModelTypeAlias = "nCKHGioiThieuChung";
+		public new const PublishedItemType ModelItemType = PublishedItemType.Content;
+#pragma warning restore 0109
+
+		public NCkhgioiThieuChung(IPublishedContent content)
+			: base(content)
+		{ }
+
+#pragma warning disable 0109 // new is redundant
+		public new static PublishedContentType GetModelContentType()
+		{
+			return PublishedContentType.Get(ModelItemType, ModelTypeAlias);
+		}
+#pragma warning restore 0109
+
+		public static PublishedPropertyType GetModelPropertyType<TValue>(Expression<Func<NCkhgioiThieuChung, TValue>> selector)
+		{
+			return PublishedContentModelUtility.GetModelPropertyType(GetModelContentType(), selector);
+		}
+
+		///<summary>
+		/// Nội Dung
+		///</summary>
+		[ImplementPropertyType("noiDung")]
+		public IHtmlString NoiDung
+		{
+			get { return Umbraco.Web.PublishedContentModels.GioiThieuItem.GetNoiDung(this); }
+		}
+	}
+
+	/// <summary>NCKH Một Số Thành Tựu</summary>
+	[PublishedContentModel("nCKHMotSoThanhTuu")]
+	public partial class NCkhmotSoThanhTuu : Page
+	{
+#pragma warning disable 0109 // new is redundant
+		public new const string ModelTypeAlias = "nCKHMotSoThanhTuu";
+		public new const PublishedItemType ModelItemType = PublishedItemType.Content;
+#pragma warning restore 0109
+
+		public NCkhmotSoThanhTuu(IPublishedContent content)
+			: base(content)
+		{ }
+
+#pragma warning disable 0109 // new is redundant
+		public new static PublishedContentType GetModelContentType()
+		{
+			return PublishedContentType.Get(ModelItemType, ModelTypeAlias);
+		}
+#pragma warning restore 0109
+
+		public static PublishedPropertyType GetModelPropertyType<TValue>(Expression<Func<NCkhmotSoThanhTuu, TValue>> selector)
+		{
+			return PublishedContentModelUtility.GetModelPropertyType(GetModelContentType(), selector);
+		}
+	}
+
+	/// <summary>HTQT Các Chương Trình Hợp Tác</summary>
+	[PublishedContentModel("hTQTCacChuongTrinhHopTac")]
+	public partial class HTqtcacChuongTrinhHopTac : Page
+	{
+#pragma warning disable 0109 // new is redundant
+		public new const string ModelTypeAlias = "hTQTCacChuongTrinhHopTac";
+		public new const PublishedItemType ModelItemType = PublishedItemType.Content;
+#pragma warning restore 0109
+
+		public HTqtcacChuongTrinhHopTac(IPublishedContent content)
+			: base(content)
+		{ }
+
+#pragma warning disable 0109 // new is redundant
+		public new static PublishedContentType GetModelContentType()
+		{
+			return PublishedContentType.Get(ModelItemType, ModelTypeAlias);
+		}
+#pragma warning restore 0109
+
+		public static PublishedPropertyType GetModelPropertyType<TValue>(Expression<Func<HTqtcacChuongTrinhHopTac, TValue>> selector)
+		{
+			return PublishedContentModelUtility.GetModelPropertyType(GetModelContentType(), selector);
+		}
+	}
+
+	/// <summary>HTQT Các Hoạt Động Hợp Tác</summary>
+	[PublishedContentModel("hTQTCacHoatDongHopTac")]
+	public partial class HTqtcacHoatDongHopTac : Page
+	{
+#pragma warning disable 0109 // new is redundant
+		public new const string ModelTypeAlias = "hTQTCacHoatDongHopTac";
+		public new const PublishedItemType ModelItemType = PublishedItemType.Content;
+#pragma warning restore 0109
+
+		public HTqtcacHoatDongHopTac(IPublishedContent content)
+			: base(content)
+		{ }
+
+#pragma warning disable 0109 // new is redundant
+		public new static PublishedContentType GetModelContentType()
+		{
+			return PublishedContentType.Get(ModelItemType, ModelTypeAlias);
+		}
+#pragma warning restore 0109
+
+		public static PublishedPropertyType GetModelPropertyType<TValue>(Expression<Func<HTqtcacHoatDongHopTac, TValue>> selector)
+		{
+			return PublishedContentModelUtility.GetModelPropertyType(GetModelContentType(), selector);
+		}
+	}
+
+	/// <summary>HTQT Giới Thiệu Chung</summary>
+	[PublishedContentModel("hTQTGioiThieuChung")]
+	public partial class HTqtgioiThieuChung : Page, IGioiThieuItem
+	{
+#pragma warning disable 0109 // new is redundant
+		public new const string ModelTypeAlias = "hTQTGioiThieuChung";
+		public new const PublishedItemType ModelItemType = PublishedItemType.Content;
+#pragma warning restore 0109
+
+		public HTqtgioiThieuChung(IPublishedContent content)
+			: base(content)
+		{ }
+
+#pragma warning disable 0109 // new is redundant
+		public new static PublishedContentType GetModelContentType()
+		{
+			return PublishedContentType.Get(ModelItemType, ModelTypeAlias);
+		}
+#pragma warning restore 0109
+
+		public static PublishedPropertyType GetModelPropertyType<TValue>(Expression<Func<HTqtgioiThieuChung, TValue>> selector)
+		{
+			return PublishedContentModelUtility.GetModelPropertyType(GetModelContentType(), selector);
+		}
+
+		///<summary>
+		/// Nội Dung
+		///</summary>
+		[ImplementPropertyType("noiDung")]
+		public IHtmlString NoiDung
+		{
+			get { return Umbraco.Web.PublishedContentModels.GioiThieuItem.GetNoiDung(this); }
+		}
+	}
+
+	/// <summary>HTQT Liên Kết</summary>
+	[PublishedContentModel("hTQTLienKet")]
+	public partial class HTqtlienKet : Page
+	{
+#pragma warning disable 0109 // new is redundant
+		public new const string ModelTypeAlias = "hTQTLienKet";
+		public new const PublishedItemType ModelItemType = PublishedItemType.Content;
+#pragma warning restore 0109
+
+		public HTqtlienKet(IPublishedContent content)
+			: base(content)
+		{ }
+
+#pragma warning disable 0109 // new is redundant
+		public new static PublishedContentType GetModelContentType()
+		{
+			return PublishedContentType.Get(ModelItemType, ModelTypeAlias);
+		}
+#pragma warning restore 0109
+
+		public static PublishedPropertyType GetModelPropertyType<TValue>(Expression<Func<HTqtlienKet, TValue>> selector)
+		{
+			return PublishedContentModelUtility.GetModelPropertyType(GetModelContentType(), selector);
+		}
+	}
+
+	/// <summary>HTQT Tiêu Chuẩn Đối Tượng ĐTNN</summary>
+	[PublishedContentModel("hTQTTieuChuanDoiTuongDTNN")]
+	public partial class HTqttieuChuanDoiTuongDtnn : Page
+	{
+#pragma warning disable 0109 // new is redundant
+		public new const string ModelTypeAlias = "hTQTTieuChuanDoiTuongDTNN";
+		public new const PublishedItemType ModelItemType = PublishedItemType.Content;
+#pragma warning restore 0109
+
+		public HTqttieuChuanDoiTuongDtnn(IPublishedContent content)
+			: base(content)
+		{ }
+
+#pragma warning disable 0109 // new is redundant
+		public new static PublishedContentType GetModelContentType()
+		{
+			return PublishedContentType.Get(ModelItemType, ModelTypeAlias);
+		}
+#pragma warning restore 0109
+
+		public static PublishedPropertyType GetModelPropertyType<TValue>(Expression<Func<HTqttieuChuanDoiTuongDtnn, TValue>> selector)
+		{
+			return PublishedContentModelUtility.GetModelPropertyType(GetModelContentType(), selector);
+		}
+	}
+
+	/// <summary>TS Liên Thông Đại Học</summary>
+	[PublishedContentModel("tSLienThongDaiHoc")]
+	public partial class TSlienThongDaiHoc : Page
+	{
+#pragma warning disable 0109 // new is redundant
+		public new const string ModelTypeAlias = "tSLienThongDaiHoc";
+		public new const PublishedItemType ModelItemType = PublishedItemType.Content;
+#pragma warning restore 0109
+
+		public TSlienThongDaiHoc(IPublishedContent content)
+			: base(content)
+		{ }
+
+#pragma warning disable 0109 // new is redundant
+		public new static PublishedContentType GetModelContentType()
+		{
+			return PublishedContentType.Get(ModelItemType, ModelTypeAlias);
+		}
+#pragma warning restore 0109
+
+		public static PublishedPropertyType GetModelPropertyType<TValue>(Expression<Func<TSlienThongDaiHoc, TValue>> selector)
+		{
+			return PublishedContentModelUtility.GetModelPropertyType(GetModelContentType(), selector);
+		}
+	}
+
+	/// <summary>TS Một Số Câu Hỏi Thường Gặp</summary>
+	[PublishedContentModel("tSMotSoCauHoiThuongGap")]
+	public partial class TSmotSoCauHoiThuongGap : Page
+	{
+#pragma warning disable 0109 // new is redundant
+		public new const string ModelTypeAlias = "tSMotSoCauHoiThuongGap";
+		public new const PublishedItemType ModelItemType = PublishedItemType.Content;
+#pragma warning restore 0109
+
+		public TSmotSoCauHoiThuongGap(IPublishedContent content)
+			: base(content)
+		{ }
+
+#pragma warning disable 0109 // new is redundant
+		public new static PublishedContentType GetModelContentType()
+		{
+			return PublishedContentType.Get(ModelItemType, ModelTypeAlias);
+		}
+#pragma warning restore 0109
+
+		public static PublishedPropertyType GetModelPropertyType<TValue>(Expression<Func<TSmotSoCauHoiThuongGap, TValue>> selector)
+		{
+			return PublishedContentModelUtility.GetModelPropertyType(GetModelContentType(), selector);
+		}
+	}
+
+	/// <summary>TS Thông Tin Chung</summary>
+	[PublishedContentModel("tSThongTinChung")]
+	public partial class TSthongTinChung : Page
+	{
+#pragma warning disable 0109 // new is redundant
+		public new const string ModelTypeAlias = "tSThongTinChung";
+		public new const PublishedItemType ModelItemType = PublishedItemType.Content;
+#pragma warning restore 0109
+
+		public TSthongTinChung(IPublishedContent content)
+			: base(content)
+		{ }
+
+#pragma warning disable 0109 // new is redundant
+		public new static PublishedContentType GetModelContentType()
+		{
+			return PublishedContentType.Get(ModelItemType, ModelTypeAlias);
+		}
+#pragma warning restore 0109
+
+		public static PublishedPropertyType GetModelPropertyType<TValue>(Expression<Func<TSthongTinChung, TValue>> selector)
+		{
+			return PublishedContentModelUtility.GetModelPropertyType(GetModelContentType(), selector);
+		}
+	}
+
+	/// <summary>TS Tuyển Sinh Đại Học</summary>
+	[PublishedContentModel("tSTuyenSinhDaiHoc")]
+	public partial class TStuyenSinhDaiHoc : Page
+	{
+#pragma warning disable 0109 // new is redundant
+		public new const string ModelTypeAlias = "tSTuyenSinhDaiHoc";
+		public new const PublishedItemType ModelItemType = PublishedItemType.Content;
+#pragma warning restore 0109
+
+		public TStuyenSinhDaiHoc(IPublishedContent content)
+			: base(content)
+		{ }
+
+#pragma warning disable 0109 // new is redundant
+		public new static PublishedContentType GetModelContentType()
+		{
+			return PublishedContentType.Get(ModelItemType, ModelTypeAlias);
+		}
+#pragma warning restore 0109
+
+		public static PublishedPropertyType GetModelPropertyType<TValue>(Expression<Func<TStuyenSinhDaiHoc, TValue>> selector)
+		{
+			return PublishedContentModelUtility.GetModelPropertyType(GetModelContentType(), selector);
+		}
+	}
+
+	/// <summary>TS Tuyển Sinh Sau Đại Học</summary>
+	[PublishedContentModel("tSTuyenSinhSauDaiHoc")]
+	public partial class TStuyenSinhSauDaiHoc : Page
+	{
+#pragma warning disable 0109 // new is redundant
+		public new const string ModelTypeAlias = "tSTuyenSinhSauDaiHoc";
+		public new const PublishedItemType ModelItemType = PublishedItemType.Content;
+#pragma warning restore 0109
+
+		public TStuyenSinhSauDaiHoc(IPublishedContent content)
+			: base(content)
+		{ }
+
+#pragma warning disable 0109 // new is redundant
+		public new static PublishedContentType GetModelContentType()
+		{
+			return PublishedContentType.Get(ModelItemType, ModelTypeAlias);
+		}
+#pragma warning restore 0109
+
+		public static PublishedPropertyType GetModelPropertyType<TValue>(Expression<Func<TStuyenSinhSauDaiHoc, TValue>> selector)
+		{
+			return PublishedContentModelUtility.GetModelPropertyType(GetModelContentType(), selector);
+		}
+	}
+
+	/// <summary>GT Giới Thiệu Chung</summary>
 	[PublishedContentModel("gioiThieuChung")]
-	public partial class GioiThieuChung : GioiThieu
+	public partial class GioiThieuChung : Page
 	{
 #pragma warning disable 0109 // new is redundant
 		public new const string ModelTypeAlias = "gioiThieuChung";
@@ -293,9 +1723,9 @@ namespace Umbraco.Web.PublishedContentModels
 		}
 	}
 
-	/// <summary>Cơ Cấu Tổ Chức</summary>
+	/// <summary>GT Cơ Cấu Tổ Chức</summary>
 	[PublishedContentModel("coCauToChuc")]
-	public partial class CoCauToChuc : GioiThieu
+	public partial class CoCauToChuc : Page
 	{
 #pragma warning disable 0109 // new is redundant
 		public new const string ModelTypeAlias = "coCauToChuc";
@@ -319,9 +1749,9 @@ namespace Umbraco.Web.PublishedContentModels
 		}
 	}
 
-	/// <summary>Hình Ảnh Tiêu Biểu</summary>
+	/// <summary>GT Hình Ảnh Tiêu Biểu</summary>
 	[PublishedContentModel("hinhAnhTieuBieu")]
-	public partial class HinhAnhTieuBieu : GioiThieu
+	public partial class HinhAnhTieuBieu : Page
 	{
 #pragma warning disable 0109 // new is redundant
 		public new const string ModelTypeAlias = "hinhAnhTieuBieu";
@@ -345,9 +1775,61 @@ namespace Umbraco.Web.PublishedContentModels
 		}
 	}
 
+	/// <summary>Khối Cơ Quan</summary>
+	[PublishedContentModel("khoiCoQuan")]
+	public partial class KhoiCoQuan : Page
+	{
+#pragma warning disable 0109 // new is redundant
+		public new const string ModelTypeAlias = "khoiCoQuan";
+		public new const PublishedItemType ModelItemType = PublishedItemType.Content;
+#pragma warning restore 0109
+
+		public KhoiCoQuan(IPublishedContent content)
+			: base(content)
+		{ }
+
+#pragma warning disable 0109 // new is redundant
+		public new static PublishedContentType GetModelContentType()
+		{
+			return PublishedContentType.Get(ModelItemType, ModelTypeAlias);
+		}
+#pragma warning restore 0109
+
+		public static PublishedPropertyType GetModelPropertyType<TValue>(Expression<Func<KhoiCoQuan, TValue>> selector)
+		{
+			return PublishedContentModelUtility.GetModelPropertyType(GetModelContentType(), selector);
+		}
+	}
+
+	/// <summary>Khối Đơn Vị Quản Lý Học Viên</summary>
+	[PublishedContentModel("khoiDonViQuanLyHocVien")]
+	public partial class KhoiDonViQuanLyHocVien : Page
+	{
+#pragma warning disable 0109 // new is redundant
+		public new const string ModelTypeAlias = "khoiDonViQuanLyHocVien";
+		public new const PublishedItemType ModelItemType = PublishedItemType.Content;
+#pragma warning restore 0109
+
+		public KhoiDonViQuanLyHocVien(IPublishedContent content)
+			: base(content)
+		{ }
+
+#pragma warning disable 0109 // new is redundant
+		public new static PublishedContentType GetModelContentType()
+		{
+			return PublishedContentType.Get(ModelItemType, ModelTypeAlias);
+		}
+#pragma warning restore 0109
+
+		public static PublishedPropertyType GetModelPropertyType<TValue>(Expression<Func<KhoiDonViQuanLyHocVien, TValue>> selector)
+		{
+			return PublishedContentModelUtility.GetModelPropertyType(GetModelContentType(), selector);
+		}
+	}
+
 	/// <summary>Ban Giám Đốc</summary>
 	[PublishedContentModel("banGiamDoc")]
-	public partial class BanGiamDoc : CoCauToChuc
+	public partial class BanGiamDoc : Page, ICaiDat
 	{
 #pragma warning disable 0109 // new is redundant
 		public new const string ModelTypeAlias = "banGiamDoc";
@@ -369,11 +1851,20 @@ namespace Umbraco.Web.PublishedContentModels
 		{
 			return PublishedContentModelUtility.GetModelPropertyType(GetModelContentType(), selector);
 		}
+
+		///<summary>
+		/// Ẩn Trên Menu
+		///</summary>
+		[ImplementPropertyType("umbracoNaviHide")]
+		public bool UmbracoNaviHide
+		{
+			get { return Umbraco.Web.PublishedContentModels.CaiDat.GetUmbracoNaviHide(this); }
+		}
 	}
 
 	/// <summary>Ban Giám Đốc Item</summary>
 	[PublishedContentModel("banGiamDocItem")]
-	public partial class BanGiamDocItem : BanGiamDoc
+	public partial class BanGiamDocItem : Misc
 	{
 #pragma warning disable 0109 // new is redundant
 		public new const string ModelTypeAlias = "banGiamDocItem";
@@ -442,35 +1933,9 @@ namespace Umbraco.Web.PublishedContentModels
 		}
 	}
 
-	/// <summary>Khối Cơ Quan</summary>
-	[PublishedContentModel("khoiCoQuan")]
-	public partial class KhoiCoQuan : CoCauToChuc
-	{
-#pragma warning disable 0109 // new is redundant
-		public new const string ModelTypeAlias = "khoiCoQuan";
-		public new const PublishedItemType ModelItemType = PublishedItemType.Content;
-#pragma warning restore 0109
-
-		public KhoiCoQuan(IPublishedContent content)
-			: base(content)
-		{ }
-
-#pragma warning disable 0109 // new is redundant
-		public new static PublishedContentType GetModelContentType()
-		{
-			return PublishedContentType.Get(ModelItemType, ModelTypeAlias);
-		}
-#pragma warning restore 0109
-
-		public static PublishedPropertyType GetModelPropertyType<TValue>(Expression<Func<KhoiCoQuan, TValue>> selector)
-		{
-			return PublishedContentModelUtility.GetModelPropertyType(GetModelContentType(), selector);
-		}
-	}
-
 	/// <summary>Khối Cơ Quan Item</summary>
 	[PublishedContentModel("khoiCoQuanItem")]
-	public partial class KhoiCoQuanItem : KhoiCoQuan
+	public partial class KhoiCoQuanItem : Misc
 	{
 #pragma warning disable 0109 // new is redundant
 		public new const string ModelTypeAlias = "khoiCoQuanItem";
@@ -530,123 +1995,9 @@ namespace Umbraco.Web.PublishedContentModels
 		}
 	}
 
-	/// <summary>Khối Khoa Viện</summary>
-	[PublishedContentModel("khoiKhoaVien")]
-	public partial class KhoiKhoaVien : CoCauToChuc
-	{
-#pragma warning disable 0109 // new is redundant
-		public new const string ModelTypeAlias = "khoiKhoaVien";
-		public new const PublishedItemType ModelItemType = PublishedItemType.Content;
-#pragma warning restore 0109
-
-		public KhoiKhoaVien(IPublishedContent content)
-			: base(content)
-		{ }
-
-#pragma warning disable 0109 // new is redundant
-		public new static PublishedContentType GetModelContentType()
-		{
-			return PublishedContentType.Get(ModelItemType, ModelTypeAlias);
-		}
-#pragma warning restore 0109
-
-		public static PublishedPropertyType GetModelPropertyType<TValue>(Expression<Func<KhoiKhoaVien, TValue>> selector)
-		{
-			return PublishedContentModelUtility.GetModelPropertyType(GetModelContentType(), selector);
-		}
-	}
-
-	/// <summary>Khối Khoa Viện Item</summary>
-	[PublishedContentModel("khoiKhoaVienItem")]
-	public partial class KhoiKhoaVienItem : KhoiKhoaVien
-	{
-#pragma warning disable 0109 // new is redundant
-		public new const string ModelTypeAlias = "khoiKhoaVienItem";
-		public new const PublishedItemType ModelItemType = PublishedItemType.Content;
-#pragma warning restore 0109
-
-		public KhoiKhoaVienItem(IPublishedContent content)
-			: base(content)
-		{ }
-
-#pragma warning disable 0109 // new is redundant
-		public new static PublishedContentType GetModelContentType()
-		{
-			return PublishedContentType.Get(ModelItemType, ModelTypeAlias);
-		}
-#pragma warning restore 0109
-
-		public static PublishedPropertyType GetModelPropertyType<TValue>(Expression<Func<KhoiKhoaVienItem, TValue>> selector)
-		{
-			return PublishedContentModelUtility.GetModelPropertyType(GetModelContentType(), selector);
-		}
-
-		///<summary>
-		/// Ban Chỉ Huy
-		///</summary>
-		[ImplementPropertyType("banChiHuy")]
-		public string BanChiHuy
-		{
-			get { return this.GetPropertyValue<string>("banChiHuy"); }
-		}
-
-		///<summary>
-		/// Chức Năng
-		///</summary>
-		[ImplementPropertyType("chucNang")]
-		public string ChucNang
-		{
-			get { return this.GetPropertyValue<string>("chucNang"); }
-		}
-
-		///<summary>
-		/// Nhiệm Vụ
-		///</summary>
-		[ImplementPropertyType("nhiemVu")]
-		public string NhiemVu
-		{
-			get { return this.GetPropertyValue<string>("nhiemVu"); }
-		}
-
-		///<summary>
-		/// Thành Tích
-		///</summary>
-		[ImplementPropertyType("thanhTich")]
-		public string ThanhTich
-		{
-			get { return this.GetPropertyValue<string>("thanhTich"); }
-		}
-	}
-
-	/// <summary>Khối Đơn Vị Quản Lý Học Viên</summary>
-	[PublishedContentModel("khoiDonViQuanLyHocVien")]
-	public partial class KhoiDonViQuanLyHocVien : CoCauToChuc
-	{
-#pragma warning disable 0109 // new is redundant
-		public new const string ModelTypeAlias = "khoiDonViQuanLyHocVien";
-		public new const PublishedItemType ModelItemType = PublishedItemType.Content;
-#pragma warning restore 0109
-
-		public KhoiDonViQuanLyHocVien(IPublishedContent content)
-			: base(content)
-		{ }
-
-#pragma warning disable 0109 // new is redundant
-		public new static PublishedContentType GetModelContentType()
-		{
-			return PublishedContentType.Get(ModelItemType, ModelTypeAlias);
-		}
-#pragma warning restore 0109
-
-		public static PublishedPropertyType GetModelPropertyType<TValue>(Expression<Func<KhoiDonViQuanLyHocVien, TValue>> selector)
-		{
-			return PublishedContentModelUtility.GetModelPropertyType(GetModelContentType(), selector);
-		}
-	}
-
 	/// <summary>Khối Đơn Vị Quản Lý Học Viên Item</summary>
 	[PublishedContentModel("khoiDonViQuanLyHocVienItem")]
-	public partial class KhoiDonViQuanLyHocVienItem : KhoiDonViQuanLyHocVien
+	public partial class KhoiDonViQuanLyHocVienItem : Misc
 	{
 #pragma warning disable 0109 // new is redundant
 		public new const string ModelTypeAlias = "khoiDonViQuanLyHocVienItem";
@@ -670,16 +2021,16 @@ namespace Umbraco.Web.PublishedContentModels
 		}
 	}
 
-	/// <summary>ĐT Giới Thiệu Chung</summary>
-	[PublishedContentModel("dTGioiThieuChung")]
-	public partial class DTgioiThieuChung : DaoTao
+	/// <summary>Liên Kết Item</summary>
+	[PublishedContentModel("lienKetItem")]
+	public partial class LienKetItem : Misc
 	{
 #pragma warning disable 0109 // new is redundant
-		public new const string ModelTypeAlias = "dTGioiThieuChung";
+		public new const string ModelTypeAlias = "lienKetItem";
 		public new const PublishedItemType ModelItemType = PublishedItemType.Content;
 #pragma warning restore 0109
 
-		public DTgioiThieuChung(IPublishedContent content)
+		public LienKetItem(IPublishedContent content)
 			: base(content)
 		{ }
 
@@ -690,1108 +2041,7 @@ namespace Umbraco.Web.PublishedContentModels
 		}
 #pragma warning restore 0109
 
-		public static PublishedPropertyType GetModelPropertyType<TValue>(Expression<Func<DTgioiThieuChung, TValue>> selector)
-		{
-			return PublishedContentModelUtility.GetModelPropertyType(GetModelContentType(), selector);
-		}
-
-		///<summary>
-		/// Nội Dung
-		///</summary>
-		[ImplementPropertyType("noiDung")]
-		public IHtmlString NoiDung
-		{
-			get { return this.GetPropertyValue<IHtmlString>("noiDung"); }
-		}
-	}
-
-	/// <summary>ĐT Đào Tạo Chuyển Cấp Liên Thông</summary>
-	[PublishedContentModel("dTDaoTaoChuyenCapLienThong")]
-	public partial class DTdaoTaoChuyenCapLienThong : DaoTao
-	{
-#pragma warning disable 0109 // new is redundant
-		public new const string ModelTypeAlias = "dTDaoTaoChuyenCapLienThong";
-		public new const PublishedItemType ModelItemType = PublishedItemType.Content;
-#pragma warning restore 0109
-
-		public DTdaoTaoChuyenCapLienThong(IPublishedContent content)
-			: base(content)
-		{ }
-
-#pragma warning disable 0109 // new is redundant
-		public new static PublishedContentType GetModelContentType()
-		{
-			return PublishedContentType.Get(ModelItemType, ModelTypeAlias);
-		}
-#pragma warning restore 0109
-
-		public static PublishedPropertyType GetModelPropertyType<TValue>(Expression<Func<DTdaoTaoChuyenCapLienThong, TValue>> selector)
-		{
-			return PublishedContentModelUtility.GetModelPropertyType(GetModelContentType(), selector);
-		}
-	}
-
-	/// <summary>ĐT Cam Kết Chuẩn Đầu Ra</summary>
-	[PublishedContentModel("dTCamKetChuanDauRa")]
-	public partial class DTcamKetChuanDauRa : DaoTao
-	{
-#pragma warning disable 0109 // new is redundant
-		public new const string ModelTypeAlias = "dTCamKetChuanDauRa";
-		public new const PublishedItemType ModelItemType = PublishedItemType.Content;
-#pragma warning restore 0109
-
-		public DTcamKetChuanDauRa(IPublishedContent content)
-			: base(content)
-		{ }
-
-#pragma warning disable 0109 // new is redundant
-		public new static PublishedContentType GetModelContentType()
-		{
-			return PublishedContentType.Get(ModelItemType, ModelTypeAlias);
-		}
-#pragma warning restore 0109
-
-		public static PublishedPropertyType GetModelPropertyType<TValue>(Expression<Func<DTcamKetChuanDauRa, TValue>> selector)
-		{
-			return PublishedContentModelUtility.GetModelPropertyType(GetModelContentType(), selector);
-		}
-	}
-
-	/// <summary>ĐT Đào Tạo Đại Học</summary>
-	[PublishedContentModel("dTDaoTaoDaiHoc")]
-	public partial class DTdaoTaoDaiHoc : DaoTao
-	{
-#pragma warning disable 0109 // new is redundant
-		public new const string ModelTypeAlias = "dTDaoTaoDaiHoc";
-		public new const PublishedItemType ModelItemType = PublishedItemType.Content;
-#pragma warning restore 0109
-
-		public DTdaoTaoDaiHoc(IPublishedContent content)
-			: base(content)
-		{ }
-
-#pragma warning disable 0109 // new is redundant
-		public new static PublishedContentType GetModelContentType()
-		{
-			return PublishedContentType.Get(ModelItemType, ModelTypeAlias);
-		}
-#pragma warning restore 0109
-
-		public static PublishedPropertyType GetModelPropertyType<TValue>(Expression<Func<DTdaoTaoDaiHoc, TValue>> selector)
-		{
-			return PublishedContentModelUtility.GetModelPropertyType(GetModelContentType(), selector);
-		}
-	}
-
-	/// <summary>ĐT Đào Tạo Sau Đại Học</summary>
-	[PublishedContentModel("dTDaoTaoSauDaiHoc")]
-	public partial class DTdaoTaoSauDaiHoc : DaoTao
-	{
-#pragma warning disable 0109 // new is redundant
-		public new const string ModelTypeAlias = "dTDaoTaoSauDaiHoc";
-		public new const PublishedItemType ModelItemType = PublishedItemType.Content;
-#pragma warning restore 0109
-
-		public DTdaoTaoSauDaiHoc(IPublishedContent content)
-			: base(content)
-		{ }
-
-#pragma warning disable 0109 // new is redundant
-		public new static PublishedContentType GetModelContentType()
-		{
-			return PublishedContentType.Get(ModelItemType, ModelTypeAlias);
-		}
-#pragma warning restore 0109
-
-		public static PublishedPropertyType GetModelPropertyType<TValue>(Expression<Func<DTdaoTaoSauDaiHoc, TValue>> selector)
-		{
-			return PublishedContentModelUtility.GetModelPropertyType(GetModelContentType(), selector);
-		}
-	}
-
-	/// <summary>ĐT Tra Cứu Điểm Thi</summary>
-	[PublishedContentModel("dTTraCuuDiemThi")]
-	public partial class DTtraCuuDiemThi : DaoTao
-	{
-#pragma warning disable 0109 // new is redundant
-		public new const string ModelTypeAlias = "dTTraCuuDiemThi";
-		public new const PublishedItemType ModelItemType = PublishedItemType.Content;
-#pragma warning restore 0109
-
-		public DTtraCuuDiemThi(IPublishedContent content)
-			: base(content)
-		{ }
-
-#pragma warning disable 0109 // new is redundant
-		public new static PublishedContentType GetModelContentType()
-		{
-			return PublishedContentType.Get(ModelItemType, ModelTypeAlias);
-		}
-#pragma warning restore 0109
-
-		public static PublishedPropertyType GetModelPropertyType<TValue>(Expression<Func<DTtraCuuDiemThi, TValue>> selector)
-		{
-			return PublishedContentModelUtility.GetModelPropertyType(GetModelContentType(), selector);
-		}
-	}
-
-	/// <summary>ĐT Bổ Túc Bồi Dưỡng</summary>
-	[PublishedContentModel("dTBoTucBoiDuong")]
-	public partial class DTboTucBoiDuong : DaoTao
-	{
-#pragma warning disable 0109 // new is redundant
-		public new const string ModelTypeAlias = "dTBoTucBoiDuong";
-		public new const PublishedItemType ModelItemType = PublishedItemType.Content;
-#pragma warning restore 0109
-
-		public DTboTucBoiDuong(IPublishedContent content)
-			: base(content)
-		{ }
-
-#pragma warning disable 0109 // new is redundant
-		public new static PublishedContentType GetModelContentType()
-		{
-			return PublishedContentType.Get(ModelItemType, ModelTypeAlias);
-		}
-#pragma warning restore 0109
-
-		public static PublishedPropertyType GetModelPropertyType<TValue>(Expression<Func<DTboTucBoiDuong, TValue>> selector)
-		{
-			return PublishedContentModelUtility.GetModelPropertyType(GetModelContentType(), selector);
-		}
-	}
-
-	/// <summary>TS Tuyển Sinh Sau Đại Học</summary>
-	[PublishedContentModel("tSTuyenSinhSauDaiHoc")]
-	public partial class TStuyenSinhSauDaiHoc : TuyenSinh
-	{
-#pragma warning disable 0109 // new is redundant
-		public new const string ModelTypeAlias = "tSTuyenSinhSauDaiHoc";
-		public new const PublishedItemType ModelItemType = PublishedItemType.Content;
-#pragma warning restore 0109
-
-		public TStuyenSinhSauDaiHoc(IPublishedContent content)
-			: base(content)
-		{ }
-
-#pragma warning disable 0109 // new is redundant
-		public new static PublishedContentType GetModelContentType()
-		{
-			return PublishedContentType.Get(ModelItemType, ModelTypeAlias);
-		}
-#pragma warning restore 0109
-
-		public static PublishedPropertyType GetModelPropertyType<TValue>(Expression<Func<TStuyenSinhSauDaiHoc, TValue>> selector)
-		{
-			return PublishedContentModelUtility.GetModelPropertyType(GetModelContentType(), selector);
-		}
-	}
-
-	/// <summary>TS Liên Thông Đại Học</summary>
-	[PublishedContentModel("tSLienThongDaiHoc")]
-	public partial class TSlienThongDaiHoc : TuyenSinh
-	{
-#pragma warning disable 0109 // new is redundant
-		public new const string ModelTypeAlias = "tSLienThongDaiHoc";
-		public new const PublishedItemType ModelItemType = PublishedItemType.Content;
-#pragma warning restore 0109
-
-		public TSlienThongDaiHoc(IPublishedContent content)
-			: base(content)
-		{ }
-
-#pragma warning disable 0109 // new is redundant
-		public new static PublishedContentType GetModelContentType()
-		{
-			return PublishedContentType.Get(ModelItemType, ModelTypeAlias);
-		}
-#pragma warning restore 0109
-
-		public static PublishedPropertyType GetModelPropertyType<TValue>(Expression<Func<TSlienThongDaiHoc, TValue>> selector)
-		{
-			return PublishedContentModelUtility.GetModelPropertyType(GetModelContentType(), selector);
-		}
-	}
-
-	/// <summary>TS Một Số Câu Hỏi Thường Gặp</summary>
-	[PublishedContentModel("tSMotSoCauHoiThuongGap")]
-	public partial class TSmotSoCauHoiThuongGap : TuyenSinh
-	{
-#pragma warning disable 0109 // new is redundant
-		public new const string ModelTypeAlias = "tSMotSoCauHoiThuongGap";
-		public new const PublishedItemType ModelItemType = PublishedItemType.Content;
-#pragma warning restore 0109
-
-		public TSmotSoCauHoiThuongGap(IPublishedContent content)
-			: base(content)
-		{ }
-
-#pragma warning disable 0109 // new is redundant
-		public new static PublishedContentType GetModelContentType()
-		{
-			return PublishedContentType.Get(ModelItemType, ModelTypeAlias);
-		}
-#pragma warning restore 0109
-
-		public static PublishedPropertyType GetModelPropertyType<TValue>(Expression<Func<TSmotSoCauHoiThuongGap, TValue>> selector)
-		{
-			return PublishedContentModelUtility.GetModelPropertyType(GetModelContentType(), selector);
-		}
-	}
-
-	/// <summary>TS Tuyển Sinh Đại Học</summary>
-	[PublishedContentModel("tSTuyenSinhDaiHoc")]
-	public partial class TStuyenSinhDaiHoc : TuyenSinh
-	{
-#pragma warning disable 0109 // new is redundant
-		public new const string ModelTypeAlias = "tSTuyenSinhDaiHoc";
-		public new const PublishedItemType ModelItemType = PublishedItemType.Content;
-#pragma warning restore 0109
-
-		public TStuyenSinhDaiHoc(IPublishedContent content)
-			: base(content)
-		{ }
-
-#pragma warning disable 0109 // new is redundant
-		public new static PublishedContentType GetModelContentType()
-		{
-			return PublishedContentType.Get(ModelItemType, ModelTypeAlias);
-		}
-#pragma warning restore 0109
-
-		public static PublishedPropertyType GetModelPropertyType<TValue>(Expression<Func<TStuyenSinhDaiHoc, TValue>> selector)
-		{
-			return PublishedContentModelUtility.GetModelPropertyType(GetModelContentType(), selector);
-		}
-	}
-
-	/// <summary>TS Thông Tin Chung</summary>
-	[PublishedContentModel("tSThongTinChung")]
-	public partial class TSthongTinChung : TuyenSinh
-	{
-#pragma warning disable 0109 // new is redundant
-		public new const string ModelTypeAlias = "tSThongTinChung";
-		public new const PublishedItemType ModelItemType = PublishedItemType.Content;
-#pragma warning restore 0109
-
-		public TSthongTinChung(IPublishedContent content)
-			: base(content)
-		{ }
-
-#pragma warning disable 0109 // new is redundant
-		public new static PublishedContentType GetModelContentType()
-		{
-			return PublishedContentType.Get(ModelItemType, ModelTypeAlias);
-		}
-#pragma warning restore 0109
-
-		public static PublishedPropertyType GetModelPropertyType<TValue>(Expression<Func<TSthongTinChung, TValue>> selector)
-		{
-			return PublishedContentModelUtility.GetModelPropertyType(GetModelContentType(), selector);
-		}
-	}
-
-	/// <summary>Nghiên Cứu Khoa Học</summary>
-	[PublishedContentModel("nghienCuuKhoaHoc")]
-	public partial class NghienCuuKhoaHoc : Page
-	{
-#pragma warning disable 0109 // new is redundant
-		public new const string ModelTypeAlias = "nghienCuuKhoaHoc";
-		public new const PublishedItemType ModelItemType = PublishedItemType.Content;
-#pragma warning restore 0109
-
-		public NghienCuuKhoaHoc(IPublishedContent content)
-			: base(content)
-		{ }
-
-#pragma warning disable 0109 // new is redundant
-		public new static PublishedContentType GetModelContentType()
-		{
-			return PublishedContentType.Get(ModelItemType, ModelTypeAlias);
-		}
-#pragma warning restore 0109
-
-		public static PublishedPropertyType GetModelPropertyType<TValue>(Expression<Func<NghienCuuKhoaHoc, TValue>> selector)
-		{
-			return PublishedContentModelUtility.GetModelPropertyType(GetModelContentType(), selector);
-		}
-	}
-
-	/// <summary>NCKH Các Chương Trình Dự Án Đề Tài</summary>
-	[PublishedContentModel("nCKHCacChuongTrinhDuAnDeTai")]
-	public partial class NCkhcacChuongTrinhDuAnDeTai : NghienCuuKhoaHoc
-	{
-#pragma warning disable 0109 // new is redundant
-		public new const string ModelTypeAlias = "nCKHCacChuongTrinhDuAnDeTai";
-		public new const PublishedItemType ModelItemType = PublishedItemType.Content;
-#pragma warning restore 0109
-
-		public NCkhcacChuongTrinhDuAnDeTai(IPublishedContent content)
-			: base(content)
-		{ }
-
-#pragma warning disable 0109 // new is redundant
-		public new static PublishedContentType GetModelContentType()
-		{
-			return PublishedContentType.Get(ModelItemType, ModelTypeAlias);
-		}
-#pragma warning restore 0109
-
-		public static PublishedPropertyType GetModelPropertyType<TValue>(Expression<Func<NCkhcacChuongTrinhDuAnDeTai, TValue>> selector)
-		{
-			return PublishedContentModelUtility.GetModelPropertyType(GetModelContentType(), selector);
-		}
-	}
-
-	/// <summary>NCKH Các Hội Đồng Khoa Học</summary>
-	[PublishedContentModel("nCKHCacHoiDongKhoaHoc")]
-	public partial class NCkhcacHoiDongKhoaHoc : NghienCuuKhoaHoc
-	{
-#pragma warning disable 0109 // new is redundant
-		public new const string ModelTypeAlias = "nCKHCacHoiDongKhoaHoc";
-		public new const PublishedItemType ModelItemType = PublishedItemType.Content;
-#pragma warning restore 0109
-
-		public NCkhcacHoiDongKhoaHoc(IPublishedContent content)
-			: base(content)
-		{ }
-
-#pragma warning disable 0109 // new is redundant
-		public new static PublishedContentType GetModelContentType()
-		{
-			return PublishedContentType.Get(ModelItemType, ModelTypeAlias);
-		}
-#pragma warning restore 0109
-
-		public static PublishedPropertyType GetModelPropertyType<TValue>(Expression<Func<NCkhcacHoiDongKhoaHoc, TValue>> selector)
-		{
-			return PublishedContentModelUtility.GetModelPropertyType(GetModelContentType(), selector);
-		}
-	}
-
-	/// <summary>NCKH Các Sản Phẩm Khoa Học</summary>
-	[PublishedContentModel("nCKHCacSanPhamKhoaHoc")]
-	public partial class NCkhcacSanPhamKhoaHoc : NghienCuuKhoaHoc
-	{
-#pragma warning disable 0109 // new is redundant
-		public new const string ModelTypeAlias = "nCKHCacSanPhamKhoaHoc";
-		public new const PublishedItemType ModelItemType = PublishedItemType.Content;
-#pragma warning restore 0109
-
-		public NCkhcacSanPhamKhoaHoc(IPublishedContent content)
-			: base(content)
-		{ }
-
-#pragma warning disable 0109 // new is redundant
-		public new static PublishedContentType GetModelContentType()
-		{
-			return PublishedContentType.Get(ModelItemType, ModelTypeAlias);
-		}
-#pragma warning restore 0109
-
-		public static PublishedPropertyType GetModelPropertyType<TValue>(Expression<Func<NCkhcacSanPhamKhoaHoc, TValue>> selector)
-		{
-			return PublishedContentModelUtility.GetModelPropertyType(GetModelContentType(), selector);
-		}
-	}
-
-	/// <summary>NCKH Giới Thiệu Chung</summary>
-	[PublishedContentModel("nCKHGioiThieuChung")]
-	public partial class NCkhgioiThieuChung : NghienCuuKhoaHoc
-	{
-#pragma warning disable 0109 // new is redundant
-		public new const string ModelTypeAlias = "nCKHGioiThieuChung";
-		public new const PublishedItemType ModelItemType = PublishedItemType.Content;
-#pragma warning restore 0109
-
-		public NCkhgioiThieuChung(IPublishedContent content)
-			: base(content)
-		{ }
-
-#pragma warning disable 0109 // new is redundant
-		public new static PublishedContentType GetModelContentType()
-		{
-			return PublishedContentType.Get(ModelItemType, ModelTypeAlias);
-		}
-#pragma warning restore 0109
-
-		public static PublishedPropertyType GetModelPropertyType<TValue>(Expression<Func<NCkhgioiThieuChung, TValue>> selector)
-		{
-			return PublishedContentModelUtility.GetModelPropertyType(GetModelContentType(), selector);
-		}
-	}
-
-	/// <summary>NCKH Một Số Thành Tựu</summary>
-	[PublishedContentModel("nCKHMotSoThanhTuu")]
-	public partial class NCkhmotSoThanhTuu : NghienCuuKhoaHoc
-	{
-#pragma warning disable 0109 // new is redundant
-		public new const string ModelTypeAlias = "nCKHMotSoThanhTuu";
-		public new const PublishedItemType ModelItemType = PublishedItemType.Content;
-#pragma warning restore 0109
-
-		public NCkhmotSoThanhTuu(IPublishedContent content)
-			: base(content)
-		{ }
-
-#pragma warning disable 0109 // new is redundant
-		public new static PublishedContentType GetModelContentType()
-		{
-			return PublishedContentType.Get(ModelItemType, ModelTypeAlias);
-		}
-#pragma warning restore 0109
-
-		public static PublishedPropertyType GetModelPropertyType<TValue>(Expression<Func<NCkhmotSoThanhTuu, TValue>> selector)
-		{
-			return PublishedContentModelUtility.GetModelPropertyType(GetModelContentType(), selector);
-		}
-	}
-
-	/// <summary>Cơ Sở Kỹ Thuật</summary>
-	[PublishedContentModel("coSoKyThuat")]
-	public partial class CoSoKyThuat : Page
-	{
-#pragma warning disable 0109 // new is redundant
-		public new const string ModelTypeAlias = "coSoKyThuat";
-		public new const PublishedItemType ModelItemType = PublishedItemType.Content;
-#pragma warning restore 0109
-
-		public CoSoKyThuat(IPublishedContent content)
-			: base(content)
-		{ }
-
-#pragma warning disable 0109 // new is redundant
-		public new static PublishedContentType GetModelContentType()
-		{
-			return PublishedContentType.Get(ModelItemType, ModelTypeAlias);
-		}
-#pragma warning restore 0109
-
-		public static PublishedPropertyType GetModelPropertyType<TValue>(Expression<Func<CoSoKyThuat, TValue>> selector)
-		{
-			return PublishedContentModelUtility.GetModelPropertyType(GetModelContentType(), selector);
-		}
-	}
-
-	/// <summary>CSKT Khai Thác Cơ Sở Kỹ Thuật</summary>
-	[PublishedContentModel("cSKTKhaiThacCoSoKyThuat")]
-	public partial class CSktkhaiThacCoSoKyThuat : CoSoKyThuat
-	{
-#pragma warning disable 0109 // new is redundant
-		public new const string ModelTypeAlias = "cSKTKhaiThacCoSoKyThuat";
-		public new const PublishedItemType ModelItemType = PublishedItemType.Content;
-#pragma warning restore 0109
-
-		public CSktkhaiThacCoSoKyThuat(IPublishedContent content)
-			: base(content)
-		{ }
-
-#pragma warning disable 0109 // new is redundant
-		public new static PublishedContentType GetModelContentType()
-		{
-			return PublishedContentType.Get(ModelItemType, ModelTypeAlias);
-		}
-#pragma warning restore 0109
-
-		public static PublishedPropertyType GetModelPropertyType<TValue>(Expression<Func<CSktkhaiThacCoSoKyThuat, TValue>> selector)
-		{
-			return PublishedContentModelUtility.GetModelPropertyType(GetModelContentType(), selector);
-		}
-	}
-
-	/// <summary>CSKT Năng Lực Các Cơ Sở</summary>
-	[PublishedContentModel("cSKTNangLucCacCoSo")]
-	public partial class CSktnangLucCacCoSo : CoSoKyThuat
-	{
-#pragma warning disable 0109 // new is redundant
-		public new const string ModelTypeAlias = "cSKTNangLucCacCoSo";
-		public new const PublishedItemType ModelItemType = PublishedItemType.Content;
-#pragma warning restore 0109
-
-		public CSktnangLucCacCoSo(IPublishedContent content)
-			: base(content)
-		{ }
-
-#pragma warning disable 0109 // new is redundant
-		public new static PublishedContentType GetModelContentType()
-		{
-			return PublishedContentType.Get(ModelItemType, ModelTypeAlias);
-		}
-#pragma warning restore 0109
-
-		public static PublishedPropertyType GetModelPropertyType<TValue>(Expression<Func<CSktnangLucCacCoSo, TValue>> selector)
-		{
-			return PublishedContentModelUtility.GetModelPropertyType(GetModelContentType(), selector);
-		}
-	}
-
-	/// <summary>Hợp Tác Quốc Tế</summary>
-	[PublishedContentModel("hopTacQuocTe")]
-	public partial class HopTacQuocTe : Page
-	{
-#pragma warning disable 0109 // new is redundant
-		public new const string ModelTypeAlias = "hopTacQuocTe";
-		public new const PublishedItemType ModelItemType = PublishedItemType.Content;
-#pragma warning restore 0109
-
-		public HopTacQuocTe(IPublishedContent content)
-			: base(content)
-		{ }
-
-#pragma warning disable 0109 // new is redundant
-		public new static PublishedContentType GetModelContentType()
-		{
-			return PublishedContentType.Get(ModelItemType, ModelTypeAlias);
-		}
-#pragma warning restore 0109
-
-		public static PublishedPropertyType GetModelPropertyType<TValue>(Expression<Func<HopTacQuocTe, TValue>> selector)
-		{
-			return PublishedContentModelUtility.GetModelPropertyType(GetModelContentType(), selector);
-		}
-	}
-
-	/// <summary>HTQT Giới Thiệu Chung</summary>
-	[PublishedContentModel("hTQTGioiThieuChung")]
-	public partial class HTqtgioiThieuChung : HopTacQuocTe
-	{
-#pragma warning disable 0109 // new is redundant
-		public new const string ModelTypeAlias = "hTQTGioiThieuChung";
-		public new const PublishedItemType ModelItemType = PublishedItemType.Content;
-#pragma warning restore 0109
-
-		public HTqtgioiThieuChung(IPublishedContent content)
-			: base(content)
-		{ }
-
-#pragma warning disable 0109 // new is redundant
-		public new static PublishedContentType GetModelContentType()
-		{
-			return PublishedContentType.Get(ModelItemType, ModelTypeAlias);
-		}
-#pragma warning restore 0109
-
-		public static PublishedPropertyType GetModelPropertyType<TValue>(Expression<Func<HTqtgioiThieuChung, TValue>> selector)
-		{
-			return PublishedContentModelUtility.GetModelPropertyType(GetModelContentType(), selector);
-		}
-	}
-
-	/// <summary>HTQT Các Chương Trình Hợp Tác</summary>
-	[PublishedContentModel("hTQTCacChuongTrinhHopTac")]
-	public partial class HTqtcacChuongTrinhHopTac : HopTacQuocTe
-	{
-#pragma warning disable 0109 // new is redundant
-		public new const string ModelTypeAlias = "hTQTCacChuongTrinhHopTac";
-		public new const PublishedItemType ModelItemType = PublishedItemType.Content;
-#pragma warning restore 0109
-
-		public HTqtcacChuongTrinhHopTac(IPublishedContent content)
-			: base(content)
-		{ }
-
-#pragma warning disable 0109 // new is redundant
-		public new static PublishedContentType GetModelContentType()
-		{
-			return PublishedContentType.Get(ModelItemType, ModelTypeAlias);
-		}
-#pragma warning restore 0109
-
-		public static PublishedPropertyType GetModelPropertyType<TValue>(Expression<Func<HTqtcacChuongTrinhHopTac, TValue>> selector)
-		{
-			return PublishedContentModelUtility.GetModelPropertyType(GetModelContentType(), selector);
-		}
-	}
-
-	/// <summary>HTQT Các Hoạt Động Hợp Tác</summary>
-	[PublishedContentModel("hTQTCacHoatDongHopTac")]
-	public partial class HTqtcacHoatDongHopTac : HopTacQuocTe
-	{
-#pragma warning disable 0109 // new is redundant
-		public new const string ModelTypeAlias = "hTQTCacHoatDongHopTac";
-		public new const PublishedItemType ModelItemType = PublishedItemType.Content;
-#pragma warning restore 0109
-
-		public HTqtcacHoatDongHopTac(IPublishedContent content)
-			: base(content)
-		{ }
-
-#pragma warning disable 0109 // new is redundant
-		public new static PublishedContentType GetModelContentType()
-		{
-			return PublishedContentType.Get(ModelItemType, ModelTypeAlias);
-		}
-#pragma warning restore 0109
-
-		public static PublishedPropertyType GetModelPropertyType<TValue>(Expression<Func<HTqtcacHoatDongHopTac, TValue>> selector)
-		{
-			return PublishedContentModelUtility.GetModelPropertyType(GetModelContentType(), selector);
-		}
-	}
-
-	/// <summary>HTQT Liên Kết</summary>
-	[PublishedContentModel("hTQTLienKet")]
-	public partial class HTqtlienKet : HopTacQuocTe
-	{
-#pragma warning disable 0109 // new is redundant
-		public new const string ModelTypeAlias = "hTQTLienKet";
-		public new const PublishedItemType ModelItemType = PublishedItemType.Content;
-#pragma warning restore 0109
-
-		public HTqtlienKet(IPublishedContent content)
-			: base(content)
-		{ }
-
-#pragma warning disable 0109 // new is redundant
-		public new static PublishedContentType GetModelContentType()
-		{
-			return PublishedContentType.Get(ModelItemType, ModelTypeAlias);
-		}
-#pragma warning restore 0109
-
-		public static PublishedPropertyType GetModelPropertyType<TValue>(Expression<Func<HTqtlienKet, TValue>> selector)
-		{
-			return PublishedContentModelUtility.GetModelPropertyType(GetModelContentType(), selector);
-		}
-	}
-
-	/// <summary>HTQT Tiêu Chuẩn Đối Tượng ĐTNN</summary>
-	[PublishedContentModel("hTQTTieuChuanDoiTuongDTNN")]
-	public partial class HTqttieuChuanDoiTuongDtnn : HopTacQuocTe
-	{
-#pragma warning disable 0109 // new is redundant
-		public new const string ModelTypeAlias = "hTQTTieuChuanDoiTuongDTNN";
-		public new const PublishedItemType ModelItemType = PublishedItemType.Content;
-#pragma warning restore 0109
-
-		public HTqttieuChuanDoiTuongDtnn(IPublishedContent content)
-			: base(content)
-		{ }
-
-#pragma warning disable 0109 // new is redundant
-		public new static PublishedContentType GetModelContentType()
-		{
-			return PublishedContentType.Get(ModelItemType, ModelTypeAlias);
-		}
-#pragma warning restore 0109
-
-		public static PublishedPropertyType GetModelPropertyType<TValue>(Expression<Func<HTqttieuChuanDoiTuongDtnn, TValue>> selector)
-		{
-			return PublishedContentModelUtility.GetModelPropertyType(GetModelContentType(), selector);
-		}
-	}
-
-	/// <summary>Thư Viện</summary>
-	[PublishedContentModel("thuVien")]
-	public partial class ThuVien : Page
-	{
-#pragma warning disable 0109 // new is redundant
-		public new const string ModelTypeAlias = "thuVien";
-		public new const PublishedItemType ModelItemType = PublishedItemType.Content;
-#pragma warning restore 0109
-
-		public ThuVien(IPublishedContent content)
-			: base(content)
-		{ }
-
-#pragma warning disable 0109 // new is redundant
-		public new static PublishedContentType GetModelContentType()
-		{
-			return PublishedContentType.Get(ModelItemType, ModelTypeAlias);
-		}
-#pragma warning restore 0109
-
-		public static PublishedPropertyType GetModelPropertyType<TValue>(Expression<Func<ThuVien, TValue>> selector)
-		{
-			return PublishedContentModelUtility.GetModelPropertyType(GetModelContentType(), selector);
-		}
-	}
-
-	/// <summary>Đảm Bảo Chất Lượng</summary>
-	[PublishedContentModel("damBaoChatLuong")]
-	public partial class DamBaoChatLuong : Page
-	{
-#pragma warning disable 0109 // new is redundant
-		public new const string ModelTypeAlias = "damBaoChatLuong";
-		public new const PublishedItemType ModelItemType = PublishedItemType.Content;
-#pragma warning restore 0109
-
-		public DamBaoChatLuong(IPublishedContent content)
-			: base(content)
-		{ }
-
-#pragma warning disable 0109 // new is redundant
-		public new static PublishedContentType GetModelContentType()
-		{
-			return PublishedContentType.Get(ModelItemType, ModelTypeAlias);
-		}
-#pragma warning restore 0109
-
-		public static PublishedPropertyType GetModelPropertyType<TValue>(Expression<Func<DamBaoChatLuong, TValue>> selector)
-		{
-			return PublishedContentModelUtility.GetModelPropertyType(GetModelContentType(), selector);
-		}
-	}
-
-	/// <summary>ĐBCL Hệ Thống ĐBCL</summary>
-	[PublishedContentModel("dBCLHeThongDBCL")]
-	public partial class DBclheThongDbcl : DamBaoChatLuong
-	{
-#pragma warning disable 0109 // new is redundant
-		public new const string ModelTypeAlias = "dBCLHeThongDBCL";
-		public new const PublishedItemType ModelItemType = PublishedItemType.Content;
-#pragma warning restore 0109
-
-		public DBclheThongDbcl(IPublishedContent content)
-			: base(content)
-		{ }
-
-#pragma warning disable 0109 // new is redundant
-		public new static PublishedContentType GetModelContentType()
-		{
-			return PublishedContentType.Get(ModelItemType, ModelTypeAlias);
-		}
-#pragma warning restore 0109
-
-		public static PublishedPropertyType GetModelPropertyType<TValue>(Expression<Func<DBclheThongDbcl, TValue>> selector)
-		{
-			return PublishedContentModelUtility.GetModelPropertyType(GetModelContentType(), selector);
-		}
-	}
-
-	/// <summary>ĐBCL Kiểm Định Chất Lượng</summary>
-	[PublishedContentModel("dBCLKiemDinhChatLuong")]
-	public partial class DBclkiemDinhChatLuong : DamBaoChatLuong
-	{
-#pragma warning disable 0109 // new is redundant
-		public new const string ModelTypeAlias = "dBCLKiemDinhChatLuong";
-		public new const PublishedItemType ModelItemType = PublishedItemType.Content;
-#pragma warning restore 0109
-
-		public DBclkiemDinhChatLuong(IPublishedContent content)
-			: base(content)
-		{ }
-
-#pragma warning disable 0109 // new is redundant
-		public new static PublishedContentType GetModelContentType()
-		{
-			return PublishedContentType.Get(ModelItemType, ModelTypeAlias);
-		}
-#pragma warning restore 0109
-
-		public static PublishedPropertyType GetModelPropertyType<TValue>(Expression<Func<DBclkiemDinhChatLuong, TValue>> selector)
-		{
-			return PublishedContentModelUtility.GetModelPropertyType(GetModelContentType(), selector);
-		}
-	}
-
-	/// <summary>ĐBCL Văn Bản Pháp Quy</summary>
-	[PublishedContentModel("dBCLVanBanPhapQuy")]
-	public partial class DBclvanBanPhapQuy : DamBaoChatLuong
-	{
-#pragma warning disable 0109 // new is redundant
-		public new const string ModelTypeAlias = "dBCLVanBanPhapQuy";
-		public new const PublishedItemType ModelItemType = PublishedItemType.Content;
-#pragma warning restore 0109
-
-		public DBclvanBanPhapQuy(IPublishedContent content)
-			: base(content)
-		{ }
-
-#pragma warning disable 0109 // new is redundant
-		public new static PublishedContentType GetModelContentType()
-		{
-			return PublishedContentType.Get(ModelItemType, ModelTypeAlias);
-		}
-#pragma warning restore 0109
-
-		public static PublishedPropertyType GetModelPropertyType<TValue>(Expression<Func<DBclvanBanPhapQuy, TValue>> selector)
-		{
-			return PublishedContentModelUtility.GetModelPropertyType(GetModelContentType(), selector);
-		}
-	}
-
-	/// <summary>ĐBCL Ý Kiến Phản Hồi</summary>
-	[PublishedContentModel("dBCLYKienPhanHoi")]
-	public partial class DBclykienPhanHoi : DamBaoChatLuong
-	{
-#pragma warning disable 0109 // new is redundant
-		public new const string ModelTypeAlias = "dBCLYKienPhanHoi";
-		public new const PublishedItemType ModelItemType = PublishedItemType.Content;
-#pragma warning restore 0109
-
-		public DBclykienPhanHoi(IPublishedContent content)
-			: base(content)
-		{ }
-
-#pragma warning disable 0109 // new is redundant
-		public new static PublishedContentType GetModelContentType()
-		{
-			return PublishedContentType.Get(ModelItemType, ModelTypeAlias);
-		}
-#pragma warning restore 0109
-
-		public static PublishedPropertyType GetModelPropertyType<TValue>(Expression<Func<DBclykienPhanHoi, TValue>> selector)
-		{
-			return PublishedContentModelUtility.GetModelPropertyType(GetModelContentType(), selector);
-		}
-	}
-
-	/// <summary>Học Sinh Sinh Viên</summary>
-	[PublishedContentModel("hocSinhSinhVien")]
-	public partial class HocSinhSinhVien : Page
-	{
-#pragma warning disable 0109 // new is redundant
-		public new const string ModelTypeAlias = "hocSinhSinhVien";
-		public new const PublishedItemType ModelItemType = PublishedItemType.Content;
-#pragma warning restore 0109
-
-		public HocSinhSinhVien(IPublishedContent content)
-			: base(content)
-		{ }
-
-#pragma warning disable 0109 // new is redundant
-		public new static PublishedContentType GetModelContentType()
-		{
-			return PublishedContentType.Get(ModelItemType, ModelTypeAlias);
-		}
-#pragma warning restore 0109
-
-		public static PublishedPropertyType GetModelPropertyType<TValue>(Expression<Func<HocSinhSinhVien, TValue>> selector)
-		{
-			return PublishedContentModelUtility.GetModelPropertyType(GetModelContentType(), selector);
-		}
-	}
-
-	/// <summary>HSSV Các Văn Bản Biểu Mẫu</summary>
-	[PublishedContentModel("hSSVCacVanBanBieuMau")]
-	public partial class HSsvcacVanBanBieuMau : HocSinhSinhVien
-	{
-#pragma warning disable 0109 // new is redundant
-		public new const string ModelTypeAlias = "hSSVCacVanBanBieuMau";
-		public new const PublishedItemType ModelItemType = PublishedItemType.Content;
-#pragma warning restore 0109
-
-		public HSsvcacVanBanBieuMau(IPublishedContent content)
-			: base(content)
-		{ }
-
-#pragma warning disable 0109 // new is redundant
-		public new static PublishedContentType GetModelContentType()
-		{
-			return PublishedContentType.Get(ModelItemType, ModelTypeAlias);
-		}
-#pragma warning restore 0109
-
-		public static PublishedPropertyType GetModelPropertyType<TValue>(Expression<Func<HSsvcacVanBanBieuMau, TValue>> selector)
-		{
-			return PublishedContentModelUtility.GetModelPropertyType(GetModelContentType(), selector);
-		}
-	}
-
-	/// <summary>HSSV Hoạt Động NCKH</summary>
-	[PublishedContentModel("hSSVHoatDongNCKH")]
-	public partial class HSsvhoatDongNckh : HocSinhSinhVien
-	{
-#pragma warning disable 0109 // new is redundant
-		public new const string ModelTypeAlias = "hSSVHoatDongNCKH";
-		public new const PublishedItemType ModelItemType = PublishedItemType.Content;
-#pragma warning restore 0109
-
-		public HSsvhoatDongNckh(IPublishedContent content)
-			: base(content)
-		{ }
-
-#pragma warning disable 0109 // new is redundant
-		public new static PublishedContentType GetModelContentType()
-		{
-			return PublishedContentType.Get(ModelItemType, ModelTypeAlias);
-		}
-#pragma warning restore 0109
-
-		public static PublishedPropertyType GetModelPropertyType<TValue>(Expression<Func<HSsvhoatDongNckh, TValue>> selector)
-		{
-			return PublishedContentModelUtility.GetModelPropertyType(GetModelContentType(), selector);
-		}
-	}
-
-	/// <summary>HSSV Hoạt Động Đoàn Thanh Niên</summary>
-	[PublishedContentModel("hSSVHoatDongDoanThanhNien")]
-	public partial class HSsvhoatDongDoanThanhNien : HocSinhSinhVien
-	{
-#pragma warning disable 0109 // new is redundant
-		public new const string ModelTypeAlias = "hSSVHoatDongDoanThanhNien";
-		public new const PublishedItemType ModelItemType = PublishedItemType.Content;
-#pragma warning restore 0109
-
-		public HSsvhoatDongDoanThanhNien(IPublishedContent content)
-			: base(content)
-		{ }
-
-#pragma warning disable 0109 // new is redundant
-		public new static PublishedContentType GetModelContentType()
-		{
-			return PublishedContentType.Get(ModelItemType, ModelTypeAlias);
-		}
-#pragma warning restore 0109
-
-		public static PublishedPropertyType GetModelPropertyType<TValue>(Expression<Func<HSsvhoatDongDoanThanhNien, TValue>> selector)
-		{
-			return PublishedContentModelUtility.GetModelPropertyType(GetModelContentType(), selector);
-		}
-	}
-
-	/// <summary>HSSV Học Bổng</summary>
-	[PublishedContentModel("hSSVHocBong")]
-	public partial class HSsvhocBong : HocSinhSinhVien
-	{
-#pragma warning disable 0109 // new is redundant
-		public new const string ModelTypeAlias = "hSSVHocBong";
-		public new const PublishedItemType ModelItemType = PublishedItemType.Content;
-#pragma warning restore 0109
-
-		public HSsvhocBong(IPublishedContent content)
-			: base(content)
-		{ }
-
-#pragma warning disable 0109 // new is redundant
-		public new static PublishedContentType GetModelContentType()
-		{
-			return PublishedContentType.Get(ModelItemType, ModelTypeAlias);
-		}
-#pragma warning restore 0109
-
-		public static PublishedPropertyType GetModelPropertyType<TValue>(Expression<Func<HSsvhocBong, TValue>> selector)
-		{
-			return PublishedContentModelUtility.GetModelPropertyType(GetModelContentType(), selector);
-		}
-	}
-
-	/// <summary>HSSV Ký Túc Xá</summary>
-	[PublishedContentModel("hSSVKyTucXa")]
-	public partial class HSsvkyTucXa : HocSinhSinhVien
-	{
-#pragma warning disable 0109 // new is redundant
-		public new const string ModelTypeAlias = "hSSVKyTucXa";
-		public new const PublishedItemType ModelItemType = PublishedItemType.Content;
-#pragma warning restore 0109
-
-		public HSsvkyTucXa(IPublishedContent content)
-			: base(content)
-		{ }
-
-#pragma warning disable 0109 // new is redundant
-		public new static PublishedContentType GetModelContentType()
-		{
-			return PublishedContentType.Get(ModelItemType, ModelTypeAlias);
-		}
-#pragma warning restore 0109
-
-		public static PublishedPropertyType GetModelPropertyType<TValue>(Expression<Func<HSsvkyTucXa, TValue>> selector)
-		{
-			return PublishedContentModelUtility.GetModelPropertyType(GetModelContentType(), selector);
-		}
-	}
-
-	/// <summary>Liên Hệ</summary>
-	[PublishedContentModel("lienHe")]
-	public partial class LienHe : Page
-	{
-#pragma warning disable 0109 // new is redundant
-		public new const string ModelTypeAlias = "lienHe";
-		public new const PublishedItemType ModelItemType = PublishedItemType.Content;
-#pragma warning restore 0109
-
-		public LienHe(IPublishedContent content)
-			: base(content)
-		{ }
-
-#pragma warning disable 0109 // new is redundant
-		public new static PublishedContentType GetModelContentType()
-		{
-			return PublishedContentType.Get(ModelItemType, ModelTypeAlias);
-		}
-#pragma warning restore 0109
-
-		public static PublishedPropertyType GetModelPropertyType<TValue>(Expression<Func<LienHe, TValue>> selector)
-		{
-			return PublishedContentModelUtility.GetModelPropertyType(GetModelContentType(), selector);
-		}
-	}
-
-	/// <summary>NCKH Các Nhóm Nghiên Cứu</summary>
-	[PublishedContentModel("nCKHCacNhomNghienCuu")]
-	public partial class NCkhcacNhomNghienCuu : NghienCuuKhoaHoc
-	{
-#pragma warning disable 0109 // new is redundant
-		public new const string ModelTypeAlias = "nCKHCacNhomNghienCuu";
-		public new const PublishedItemType ModelItemType = PublishedItemType.Content;
-#pragma warning restore 0109
-
-		public NCkhcacNhomNghienCuu(IPublishedContent content)
-			: base(content)
-		{ }
-
-#pragma warning disable 0109 // new is redundant
-		public new static PublishedContentType GetModelContentType()
-		{
-			return PublishedContentType.Get(ModelItemType, ModelTypeAlias);
-		}
-#pragma warning restore 0109
-
-		public static PublishedPropertyType GetModelPropertyType<TValue>(Expression<Func<NCkhcacNhomNghienCuu, TValue>> selector)
-		{
-			return PublishedContentModelUtility.GetModelPropertyType(GetModelContentType(), selector);
-		}
-	}
-
-	/// <summary>HSSV Giới Thiệu Chung</summary>
-	[PublishedContentModel("hSSVGioiThieuChung")]
-	public partial class HSsvgioiThieuChung : HocSinhSinhVien
-	{
-#pragma warning disable 0109 // new is redundant
-		public new const string ModelTypeAlias = "hSSVGioiThieuChung";
-		public new const PublishedItemType ModelItemType = PublishedItemType.Content;
-#pragma warning restore 0109
-
-		public HSsvgioiThieuChung(IPublishedContent content)
-			: base(content)
-		{ }
-
-#pragma warning disable 0109 // new is redundant
-		public new static PublishedContentType GetModelContentType()
-		{
-			return PublishedContentType.Get(ModelItemType, ModelTypeAlias);
-		}
-#pragma warning restore 0109
-
-		public static PublishedPropertyType GetModelPropertyType<TValue>(Expression<Func<HSsvgioiThieuChung, TValue>> selector)
-		{
-			return PublishedContentModelUtility.GetModelPropertyType(GetModelContentType(), selector);
-		}
-	}
-
-	/// <summary>Tin Tức Item</summary>
-	[PublishedContentModel("tinTucItem")]
-	public partial class TinTucItem : Misc
-	{
-#pragma warning disable 0109 // new is redundant
-		public new const string ModelTypeAlias = "tinTucItem";
-		public new const PublishedItemType ModelItemType = PublishedItemType.Content;
-#pragma warning restore 0109
-
-		public TinTucItem(IPublishedContent content)
-			: base(content)
-		{ }
-
-#pragma warning disable 0109 // new is redundant
-		public new static PublishedContentType GetModelContentType()
-		{
-			return PublishedContentType.Get(ModelItemType, ModelTypeAlias);
-		}
-#pragma warning restore 0109
-
-		public static PublishedPropertyType GetModelPropertyType<TValue>(Expression<Func<TinTucItem, TValue>> selector)
+		public static PublishedPropertyType GetModelPropertyType<TValue>(Expression<Func<LienKetItem, TValue>> selector)
 		{
 			return PublishedContentModelUtility.GetModelPropertyType(GetModelContentType(), selector);
 		}
@@ -1806,6 +2056,209 @@ namespace Umbraco.Web.PublishedContentModels
 		}
 
 		///<summary>
+		/// Link
+		///</summary>
+		[ImplementPropertyType("link")]
+		public string Link
+		{
+			get { return this.GetPropertyValue<string>("link"); }
+		}
+	}
+
+	// Mixin content Type 1401 with alias "gioiThieuItem"
+	/// <summary>Giới Thiệu</summary>
+	public partial interface IGioiThieuItem : IPublishedContent
+	{
+		/// <summary>Nội Dung</summary>
+		IHtmlString NoiDung { get; }
+	}
+
+	/// <summary>Giới Thiệu</summary>
+	[PublishedContentModel("gioiThieuItem")]
+	public partial class GioiThieuItem : PublishedContentModel, IGioiThieuItem
+	{
+#pragma warning disable 0109 // new is redundant
+		public new const string ModelTypeAlias = "gioiThieuItem";
+		public new const PublishedItemType ModelItemType = PublishedItemType.Content;
+#pragma warning restore 0109
+
+		public GioiThieuItem(IPublishedContent content)
+			: base(content)
+		{ }
+
+#pragma warning disable 0109 // new is redundant
+		public new static PublishedContentType GetModelContentType()
+		{
+			return PublishedContentType.Get(ModelItemType, ModelTypeAlias);
+		}
+#pragma warning restore 0109
+
+		public static PublishedPropertyType GetModelPropertyType<TValue>(Expression<Func<GioiThieuItem, TValue>> selector)
+		{
+			return PublishedContentModelUtility.GetModelPropertyType(GetModelContentType(), selector);
+		}
+
+		///<summary>
+		/// Nội Dung
+		///</summary>
+		[ImplementPropertyType("noiDung")]
+		public IHtmlString NoiDung
+		{
+			get { return GetNoiDung(this); }
+		}
+
+		/// <summary>Static getter for Nội Dung</summary>
+		public static IHtmlString GetNoiDung(IGioiThieuItem that) { return that.GetPropertyValue<IHtmlString>("noiDung"); }
+	}
+
+	// Mixin content Type 1404 with alias "footerControl"
+	/// <summary>Footer Control</summary>
+	public partial interface IFooterControl : IPublishedContent
+	{
+		/// <summary>Liên Kết</summary>
+		Umbraco.Web.Models.RelatedLinks LienKet { get; }
+
+		/// <summary>Nội Dung</summary>
+		IHtmlString NoiDung { get; }
+
+		/// <summary>Tiêu Đề</summary>
+		string TieuDe { get; }
+	}
+
+	/// <summary>Footer Control</summary>
+	[PublishedContentModel("footerControl")]
+	public partial class FooterControl : PublishedContentModel, IFooterControl
+	{
+#pragma warning disable 0109 // new is redundant
+		public new const string ModelTypeAlias = "footerControl";
+		public new const PublishedItemType ModelItemType = PublishedItemType.Content;
+#pragma warning restore 0109
+
+		public FooterControl(IPublishedContent content)
+			: base(content)
+		{ }
+
+#pragma warning disable 0109 // new is redundant
+		public new static PublishedContentType GetModelContentType()
+		{
+			return PublishedContentType.Get(ModelItemType, ModelTypeAlias);
+		}
+#pragma warning restore 0109
+
+		public static PublishedPropertyType GetModelPropertyType<TValue>(Expression<Func<FooterControl, TValue>> selector)
+		{
+			return PublishedContentModelUtility.GetModelPropertyType(GetModelContentType(), selector);
+		}
+
+		///<summary>
+		/// Liên Kết
+		///</summary>
+		[ImplementPropertyType("lienKet")]
+		public Umbraco.Web.Models.RelatedLinks LienKet
+		{
+			get { return GetLienKet(this); }
+		}
+
+		/// <summary>Static getter for Liên Kết</summary>
+		public static Umbraco.Web.Models.RelatedLinks GetLienKet(IFooterControl that) { return that.GetPropertyValue<Umbraco.Web.Models.RelatedLinks>("lienKet"); }
+
+		///<summary>
+		/// Nội Dung
+		///</summary>
+		[ImplementPropertyType("noiDung")]
+		public IHtmlString NoiDung
+		{
+			get { return GetNoiDung(this); }
+		}
+
+		/// <summary>Static getter for Nội Dung</summary>
+		public static IHtmlString GetNoiDung(IFooterControl that) { return that.GetPropertyValue<IHtmlString>("noiDung"); }
+
+		///<summary>
+		/// Tiêu Đề
+		///</summary>
+		[ImplementPropertyType("tieuDe")]
+		public string TieuDe
+		{
+			get { return GetTieuDe(this); }
+		}
+
+		/// <summary>Static getter for Tiêu Đề</summary>
+		public static string GetTieuDe(IFooterControl that) { return that.GetPropertyValue<string>("tieuDe"); }
+	}
+
+	// Mixin content Type 1413 with alias "imageListControls"
+	/// <summary>Image List Controls</summary>
+	public partial interface IImageListControls : IPublishedContent
+	{
+		/// <summary>Image List</summary>
+		IEnumerable<IPublishedContent> ImageList { get; }
+	}
+
+	/// <summary>Image List Controls</summary>
+	[PublishedContentModel("imageListControls")]
+	public partial class ImageListControls : PublishedContentModel, IImageListControls
+	{
+#pragma warning disable 0109 // new is redundant
+		public new const string ModelTypeAlias = "imageListControls";
+		public new const PublishedItemType ModelItemType = PublishedItemType.Content;
+#pragma warning restore 0109
+
+		public ImageListControls(IPublishedContent content)
+			: base(content)
+		{ }
+
+#pragma warning disable 0109 // new is redundant
+		public new static PublishedContentType GetModelContentType()
+		{
+			return PublishedContentType.Get(ModelItemType, ModelTypeAlias);
+		}
+#pragma warning restore 0109
+
+		public static PublishedPropertyType GetModelPropertyType<TValue>(Expression<Func<ImageListControls, TValue>> selector)
+		{
+			return PublishedContentModelUtility.GetModelPropertyType(GetModelContentType(), selector);
+		}
+
+		///<summary>
+		/// Image List
+		///</summary>
+		[ImplementPropertyType("imageList")]
+		public IEnumerable<IPublishedContent> ImageList
+		{
+			get { return GetImageList(this); }
+		}
+
+		/// <summary>Static getter for Image List</summary>
+		public static IEnumerable<IPublishedContent> GetImageList(IImageListControls that) { return that.GetPropertyValue<IEnumerable<IPublishedContent>>("imageList"); }
+	}
+
+	/// <summary>Content</summary>
+	[PublishedContentModel("content")]
+	public partial class Content : PublishedContentModel
+	{
+#pragma warning disable 0109 // new is redundant
+		public new const string ModelTypeAlias = "content";
+		public new const PublishedItemType ModelItemType = PublishedItemType.Content;
+#pragma warning restore 0109
+
+		public Content(IPublishedContent content)
+			: base(content)
+		{ }
+
+#pragma warning disable 0109 // new is redundant
+		public new static PublishedContentType GetModelContentType()
+		{
+			return PublishedContentType.Get(ModelItemType, ModelTypeAlias);
+		}
+#pragma warning restore 0109
+
+		public static PublishedPropertyType GetModelPropertyType<TValue>(Expression<Func<Content, TValue>> selector)
+		{
+			return PublishedContentModelUtility.GetModelPropertyType(GetModelContentType(), selector);
+		}
+
+		///<summary>
 		/// Nội Dung
 		///</summary>
 		[ImplementPropertyType("noiDung")]
@@ -1813,14 +2266,58 @@ namespace Umbraco.Web.PublishedContentModels
 		{
 			get { return this.GetPropertyValue<IHtmlString>("noiDung"); }
 		}
+	}
+
+	/// <summary>Liên Kết</summary>
+	[PublishedContentModel("lienKet")]
+	public partial class LienKet : PublishedContentModel
+	{
+#pragma warning disable 0109 // new is redundant
+		public new const string ModelTypeAlias = "lienKet";
+		public new const PublishedItemType ModelItemType = PublishedItemType.Content;
+#pragma warning restore 0109
+
+		public LienKet(IPublishedContent content)
+			: base(content)
+		{ }
+
+#pragma warning disable 0109 // new is redundant
+		public new static PublishedContentType GetModelContentType()
+		{
+			return PublishedContentType.Get(ModelItemType, ModelTypeAlias);
+		}
+#pragma warning restore 0109
+
+		public static PublishedPropertyType GetModelPropertyType<TValue>(Expression<Func<LienKet, TValue>> selector)
+		{
+			return PublishedContentModelUtility.GetModelPropertyType(GetModelContentType(), selector);
+		}
 
 		///<summary>
-		/// Tác Giả
+		/// Hình Ảnh
 		///</summary>
-		[ImplementPropertyType("tacGia")]
-		public string TacGia
+		[ImplementPropertyType("hinhAnh")]
+		public IPublishedContent HinhAnh
 		{
-			get { return this.GetPropertyValue<string>("tacGia"); }
+			get { return this.GetPropertyValue<IPublishedContent>("hinhAnh"); }
+		}
+
+		///<summary>
+		/// Link
+		///</summary>
+		[ImplementPropertyType("link")]
+		public string Link
+		{
+			get { return this.GetPropertyValue<string>("link"); }
+		}
+
+		///<summary>
+		/// Nội Dung
+		///</summary>
+		[ImplementPropertyType("noiDung")]
+		public IHtmlString NoiDung
+		{
+			get { return this.GetPropertyValue<IHtmlString>("noiDung"); }
 		}
 
 		///<summary>

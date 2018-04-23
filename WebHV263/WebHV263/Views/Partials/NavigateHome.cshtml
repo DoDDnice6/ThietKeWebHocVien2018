@@ -21,7 +21,7 @@
             {
                 <li class="dropdown @(item.IsAncestorOrSelf(Model.Content) ? "active" : null) nav-item">
                     <a class="dropdown-toggle nav-link" data-toggle="dropdown" href="@item.Url">@item.Name</a>
-                    <ul class="dropdown-menu">
+                    <ul class="dropdown-menu" style="font-size:12px;">
                         @foreach (var child in item.Children.Where(x => x.IsVisible()).ToArray())
                         {
                             <a class="dropdown-item nav-item" href="@child.Url">@child.Name</a>

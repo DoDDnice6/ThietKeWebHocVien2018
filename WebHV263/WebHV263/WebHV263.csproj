@@ -374,6 +374,8 @@
     <Content Include="App_Plugins\PageNotFoundManager\css\style.css" />
     <Content Include="App_Plugins\PageNotFoundManager\js\pagenotfoundmanager.dialog.controller.js" />
     <Content Include="App_Plugins\PageNotFoundManager\js\pagenotfoundmanager.resource.js" />
+    <Content Include="Assets\css\small-business.css" />
+    <Content Include="Assets\gulpfile.js" />
     <Content Include="config\grid.editors.config.js" />
     <Content Include="config\Lang\cs-CZ.user.xml" />
     <Content Include="config\Lang\da-DK.user.xml" />
@@ -429,6 +431,11 @@
     <Content Include="config\404handlers.config" />
     <Content Include="App_Plugins\PageNotFoundManager\PageNotFoundManager.config" />
     <Content Include="App_Plugins\PageNotFoundManager\package.manifest" />
+    <Content Include="Assets\.gitignore" />
+    <Content Include="Assets\.travis.yml" />
+    <Content Include="Assets\LICENSE" />
+    <Content Include="Assets\package-lock.json" />
+    <Content Include="Assets\package.json" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -1820,13 +1827,19 @@
     <Content Include="Views\GioiThieu.cshtml" />
     <Content Include="Views\Partials\NavigateHome.cshtml" />
     <Content Include="Views\Partials\Đào Tạo Menu.cshtml" />
+    <Content Include="Views\Partials\BreadCrumb.cshtml" />
+    <Content Include="Views\Partials\EditProfile.cshtml" />
+    <Content Include="Views\Partials\ListAncestorPage.cshtml" />
+    <Content Include="Views\Partials\ListChildPage.cshtml" />
+    <Content Include="Views\Partials\ListDescendantPage.cshtml" />
+    <Content Include="Views\Partials\Login.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Assets\css\" />
     <Folder Include="Assets\fonts\" />
     <Folder Include="Assets\images\" />
     <Folder Include="Assets\js\" />
+    <Folder Include="Assets\vendor\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

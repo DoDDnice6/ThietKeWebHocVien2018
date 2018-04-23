@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<DocumentType>
+  <Info>
+    <Name>CSKT Năng Lực Các Cơ Sở</Name>
+    <Alias>cSKTNangLucCacCoSo</Alias>
+    <Icon>icon-tab color-green</Icon>
+    <Thumbnail>folder.png</Thumbnail>
+    <Description />
+    <AllowAtRoot>False</AllowAtRoot>
+    <IsListView>False</IsListView>
+    <Master>master</Master>
+    <Compositions />
+    <AllowedTemplates>
+      <Template>CSKTNangLucCacCoSo</Template>
+    </AllowedTemplates>
+    <DefaultTemplate>CSKTNangLucCacCoSo</DefaultTemplate>
+  </Info>
+  <Structure />
+  <GenericProperties />
+  <Tabs />
+</DocumentType>

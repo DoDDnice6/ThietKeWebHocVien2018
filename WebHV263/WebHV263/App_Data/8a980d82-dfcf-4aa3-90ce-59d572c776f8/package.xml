@@ -1,0 +1,76 @@
+﻿<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<umbPackage>
+  <files>
+    <file>
+      <guid>PdfThumbView.ascx</guid>
+      <orgPath>/usercontrols</orgPath>
+      <orgName>PdfThumbView.ascx</orgName>
+    </file>
+    <file>
+      <guid>Scandia.Packages.PDFThumb.dll</guid>
+      <orgPath>/bin</orgPath>
+      <orgName>Scandia.Packages.PDFThumb.dll</orgName>
+    </file>
+    <file>
+      <guid>TallComponents.PDFThumbnail.dll</guid>
+      <orgPath>/bin</orgPath>
+      <orgName>TallComponents.PDFThumbnail.dll</orgName>
+    </file>
+    <file>
+      <guid>pdfthumbnail.aspx</guid>
+      <orgPath>/umbraco/plugins</orgPath>
+      <orgName>pdfthumbnail.aspx</orgName>
+    </file>
+  </files>
+  <info>
+    <package>
+      <name>PDF Preview</name>
+      <version>v1.0</version>
+      <license url="http://www.opensource.org/licenses/mit-license.php">MIT license</license>
+      <url>http://www.scandiaconsulting.com/company/news/new-umbraco-package-pdf-preview.aspx</url>
+      <requirements>
+        <major>3</major>
+        <minor>0</minor>
+        <patch>0</patch>
+      </requirements>
+    </package>
+    <author>
+      <name>Nik Wahlberg</name>
+      <website>http://www.scandiaconsulting.com</website>
+    </author>
+    <readme><![CDATA[This package allows users to easily select from the existing Media library, using uploaded PDF documents. Furthermore, the user can select which page in the PDF document to use for the preview. This comes in handy if, for example, you are linking to an exported PowerPoint deck, but want to show something other than the title slide.
+
+Configuration
+The macro takes the following parameters:
+
+Page Number - The number of the page in the PDF document
+PDF File - The PDF file to preview (using Media Chooser)
+Quality DPI (optional) - The default value is 18 (max) but can be set lower.
+Link URL (optional) - By default the macro links to the selected PDF document. This can be overridden with any fully qualified URL (including "http://")]]></readme>
+  </info>
+  <DocumentTypes />
+  <Templates />
+  <Stylesheets />
+  <Macros>
+    <macro>
+      <name>Pdf Preview</name>
+      <alias>PdfPreview</alias>
+      <scriptType>/usercontrols/PdfThumbView.ascx</scriptType>
+      <scriptAssembly>
+      </scriptAssembly>
+      <xslt>
+      </xslt>
+      <useInEditor>True</useInEditor>
+      <refreshRate>0</refreshRate>
+      <properties>
+        <property name="Page Number" alias="PageNum" show="True" propertyType="text" />
+        <property name="PDF File" alias="MediaId" show="True" propertyType="mediaCurrent" />
+        <property name="Quality DPI (default: 18)" alias="QualityDPI" show="True" propertyType="number" />
+        <property name="Link URL (default: link to file)" alias="LinkURL" show="True" propertyType="text" />
+      </properties>
+    </macro>
+  </Macros>
+  <DictionaryItems />
+  <Languages />
+  <DataTypes />
+</umbPackage>

@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE xsl:stylesheet [
+    <!ENTITY nbsp '&#x00A0;'>
+]>
+<xsl:stylesheet
+  version='1.0'
+  xmlns:xsl='http://www.w3.org/1999/XSL/Transform'
+  xmlns:msxml='urn:schemas-microsoft-com:xslt'
+  xmlns:umbraco.library='urn:umbraco.library' xmlns:Exslt.ExsltCommon='urn:Exslt.ExsltCommon' xmlns:Exslt.ExsltDatesAndTimes='urn:Exslt.ExsltDatesAndTimes' xmlns:Exslt.ExsltMath='urn:Exslt.ExsltMath' xmlns:Exslt.ExsltRegularExpressions='urn:Exslt.ExsltRegularExpressions' xmlns:Exslt.ExsltStrings='urn:Exslt.ExsltStrings' xmlns:Exslt.ExsltSets='urn:Exslt.ExsltSets' xmlns:tagsLib='urn:tagsLib' xmlns:BlogLibrary='urn:BlogLibrary'
+  exclude-result-prefixes='msxml umbraco.library Exslt.ExsltCommon Exslt.ExsltDatesAndTimes Exslt.ExsltMath Exslt.ExsltRegularExpressions Exslt.ExsltStrings Exslt.ExsltSets tagsLib BlogLibrary '>
+
+
+    <xsl:output method='xml' omit-xml-declaration='yes'/>
+
+    <xsl:param name='currentPage'/>
+
+    <xsl:template match='/'>
+        <xsl:variable name='pdfurl' select='/macro/PdfUrl'/>
+        <xsl:variable name='pdfWidth' select='/macro/PdfWidth'/>
+        <xsl:variable name='pdfHeight' select='/macro/PdfHeight'/>
+
+        <iframe>
+            <xsl:attribute name="src">
+                <xsl:text>http://docs.google.com/gview?url=</xsl:text>
+                <xsl:variable name="url" select="concat('http://',umbraco.library:RequestServerVariables('HTTP_HOST'))" />
+                <xsl:value-of select="$url"/>
+                <xsl:value-of select='$pdfurl/*/umbracoFile/text()'/>
+                <xsl:text>&amp;embedded=true </xsl:text>
+            </xsl:attribute>
+            <xsl:attribute name="style">
+                <xsl:text>width:</xsl:text>
+                <xsl:value-of select='$pdfWidth'/>
+                <xsl:text>;height:</xsl:text>
+                <xsl:value-of select='$pdfHeight'/>
+                <xsl:text>;</xsl:text>
+            </xsl:attribute>
+            <xsl:attribute name="frameborder">
+                <xsl:text>0</xsl:text>
+            </xsl:attribute>
+        </iframe>
+    </xsl:template>
+
+</xsl:stylesheet>

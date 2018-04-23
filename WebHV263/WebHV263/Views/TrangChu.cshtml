@@ -2,19 +2,13 @@
 @{
     Layout = "Master.cshtml";
 }
-<script src="/Assets/js/responsiveslides.min.js"></script>
-<script>
+@{
+    var items = Model.Content.GetPropertyValue<IEnumerable<IPublishedContent>>("slide").Take(3);
+}
+@section Scripts{
 
-    $(function () {
-        $("#slider").responsiveSlides({
-            auto: true,
-            nav: true,
-            speed: 500,
-            namespace: "callbacks",
-            pager: true,
-        });
-    });
-</script>
+}
+
 @Html.Partial("EditProfile")
 
 
@@ -22,8 +16,47 @@
 <!-- Slide -->
 <div class="row my-4">
     <div class="col-lg-8">
-        <img class="img-fluid rounded" src="http://placehold.it/900x400" alt="">
+        @*Slide*@
+
+        <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+            <ol class="carousel-indicators">
+                <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+                <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+                <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+            </ol>
+            <div class="carousel-inner">
+                @foreach (var item in items)
+                {
+                    <div class="carousel-item @(items.IndexOf(item)==0? "active" : "")">
+                        @{
+                            var image = Umbraco.TypedMedia(item.GetPropertyValue<string>("hinhAnh"));
+                            var url = String.Empty;
+                            if (image != null)
+                            {
+                                url = image.Url;
+                            }
+                            <img class="d-block w-100" src="@url" width="100%" height="100%" />
+                            <a href="@(item.GetPropertyValue<string>("link"))">@(item.GetPropertyValue<string>("tieuDe"))</a>
+
+                        }
+
+                    </div>
+                            }
+            </div>
+            <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+            </a>
+        </div>
+
+        @*End Slide*@
     </div>
+
+
     <!-- /.col-lg-8 -->
     <div class="col-lg-4">
         <h1>Business Name or Tagline</h1>
@@ -36,34 +69,26 @@
 
 
 <div class="clearfix"></div>
-<div class="news">
-    <div class="container">
-        <h3>Tin Hoạt Động</h3>
-        @*@{
-                var selection = Model.Content.Site().FirstChild("tinTuc").FirstChild("chiTietTinTuc").Children("tinTucItem")
-                                    .Where(x => x.IsVisible());
-            }
-            <ul>
-                @foreach(var item in selection){
-                    <div class="col-md-4 event-grid">
-                         @{
-                                    var image = Umbraco.TypedMedia(item.GetPropertyValue<string>("hinhAnh"));
-                                    var url = String.Empty;
-                                    if (image != null)
-                                    {
-                                        url = image.Url;
-                                    }
-                                    <div style="width:72%;">
-                                        <img src="@url" width="100%" height="100px"/>
-                                    </div>
-                        }
-                        <div class="clearfix"></div>
-                        <a href="@item.Url">@item.Name</a>
-                        <div class="clearfix"></div>
-                    </div>
-                }
 
-            </ul>    *@
-    </div>
+<div class="col-md-8 float-left" style="background-color:green">
+    content left
+    @{ 
+        var news = Model.Content.Site().FirstChild("tinTuc").Children()
+                                    .Where(x => x.IsVisible()).ToList();
+        foreach(var newtab in news)
+        {
+            var newitem = newtab.Children().Where(x => x.IsVisible()).Take(3).ToList();
+            foreach(var item in newitem)
+            {
+                <div class="col-md-4 float-left">
+                    <img src="@(Umbraco.TypedMedia(item.GetPropertyValue<string>("hinhAnh")).Url)" width="100px" height="100px" />
+                    <a href="@item.Url">@(item.GetPropertyValue<string>("tieuDe")))</a>
+                </div>
+            }
+        }
+    }
+
 </div>
-<!---->
+<div class="col-md-4 float-left" style="background-color:aquamarine">
+    content right
+</div>

@@ -1,82 +1,17 @@
-﻿@*@inherits Umbraco.Web.Mvc.UmbracoTemplatePage
+﻿@inherits Umbraco.Web.Mvc.UmbracoTemplatePage
+@using Umbraco.Core.Models
+@using Umbraco.Web.Models
+
 @{
-	Layout = null;
+    Layout = null;
+
+    IEnumerable<RelatedLink> footerLink = CurrentPage.AncestorOrSelf(1).GetPropertyValue<IEnumerable<RelatedLink>>("lienKet");
+    var titleFooter= CurrentPage.AncestorOrSelf(1).GetPropertyValue<string>("tieuDe");
+    var contentFooter = CurrentPage.AncestorOrSelf(1).GetPropertyValue<string>("noiDung");
 }
 
-@* the fun starts here *@
-@*
-<!DOCTYPE HTML>
-<html>
-<head>
-    <title>University a Educational Category Flat Bootstarp Responsive Website Template | Home :: w3layouts</title>
-    
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    
-    <link href="/Assets/css/bootstrap.css" rel='stylesheet' type='text/css' />
-    <!-- jQuery (necessary JavaScript plugins) -->
-    <script src="/Assets/js/bootstrap.js"></script>
-    <!-- Custom Theme files -->
-    <link href="/Assets/css/style.css" rel='stylesheet' type='text/css' />
-    <!-- Custom Theme files -->
-    <!--//theme-style-->
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <meta name="keywords" content="University Responsive web template, Bootstrap Web Templates, Flat Web Templates, Andriod Compatible web template,
-Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyErricsson, Motorola web design" />
-    <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
-    <script src="/Assets/js/jquery.min.js"></script>
-    <script src="/Assets/js/bootstrap.js"></script>
 
-</head>
-<body>
-    <div class="banner">
-        <div class="header">
-            <div class="logo">
-                <a href="index.html"><img src="images/logo.jpg" alt="" /></a>
-            </div>
-            <div class="top-menu">
-                <span class="menu"></span>
-    
-                @{
-                    var parentNode = Umbraco.TypedContent(1059).Children();
-                }
-                    
-                    @Html.Partial("NavigateHome")
-            </div>
-            <!-- script-for-menu -->
-            <script>
-				$("span.menu").click(function(){
-					$("ul.navig").slideToggle("slow" , function(){
-					});
-				});
-            </script>
-            <!-- script-for-menu -->
-    
-            <div class="clearfix"></div>
-            @Html.Partial("BreadCrumb")
-            <div class="clearfix"></div>
-           
-        </div>
 
-    </div>
-    <!---->
-    <div class="clearfix"></div>
-    @RenderBody()
-    <div class="clearfix"></div>
-    <div class="footer">
-
-    </div>
-    <!---->
-    <div class="copywrite">
-        <div class="container">
-            <p>Copyright © 2015 University. All rights reserved | Design by <a href="http://w3layouts.com">W3layouts</a></p>
-        </div>
-    </div>
-    <!---->
-</body>
-
-</html>*@
 
 
 <!DOCTYPE html>
@@ -96,51 +31,54 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
         <div class="container">
-            <a class="navbar-brand" href="#">Start Bootstrap</a>
+            <a class="navbar-brand" href="#">HVKTQS</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarResponsive">
-                @*<ul class="navbar-nav ml-auto">
-                    <li class="nav-item active">
-                        <a class="nav-link" href="#">
-                            Home
-                            <span class="sr-only">(current)</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">About</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Services</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Contact</a>
-                    </li>
-                </ul>*@
                 @Html.Partial("NavigateHome")
             </div>
         </div>
     </nav>
     <!-- Page Content -->
-    <div class="clearfix"></div>
-    <div class="row">
-        @Html.Partial("BreadCrumb")
-    </div>
+
+
     <div class="container">
-       @RenderBody()
+        <div class="row">
+            @Html.Partial("BreadCrumb")
+        </div>
+        <div class="clearfix"></div>
+        @RenderBody()
     </div>
     <div class="clearfix"></div>
     <!-- /.container -->
     <!-- Footer -->
-    <footer class="py-5 bg-dark">
-        <div class="container">
-            <p class="m-0 text-center text-white">Copyright &copy; Your Website 2017</p>
+    <footer class="py-5">
+        <div class="container" style="background-color:burlywood">
+            <div class="col-md-4 float-left">
+                <div>@titleFooter</div>
+                <div>@Html.Raw(contentFooter)</div>
+            </div>
+            <div class="col-md-4 float-left">
+                <p>LIÊN KẾT WEBSITE</p>
+                @{if (footerLink != null && footerLink.Count() > 0)
+                    {
+                        <ul>
+                            @foreach(var link in footerLink)
+                            {
+                            <li><a href="@link.Link">@link.Caption</a></li>
+                            }
+                        </ul>
+
+                    }
+                }
+            </div>
         </div>
         <!-- /.container -->
     </footer>
     <!-- Bootstrap core JavaScript -->
     <script src="~/Assets/vendor/jquery/jquery.min.js"></script>
     <script src="~/Assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    @RenderSection("Scripts", false)
 </body>
 </html>
